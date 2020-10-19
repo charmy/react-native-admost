@@ -4,14 +4,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.facebook.react.bridge.ReadableArray;
+import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.SimpleViewManager;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
+
+import java.util.Map;
 
 import javax.annotation.Nonnull;
 
 public class AdMostAdViewManager extends SimpleViewManager<AdMostAdView> {
   private static final String REACT_CLASS = "RCTAdMostAdView";
+  private static final int LOAD_AD = 0;
 
   @NonNull
   @Override
@@ -25,11 +29,18 @@ public class AdMostAdViewManager extends SimpleViewManager<AdMostAdView> {
     return AdMostAdView.newView(reactContext);
   }
 
+  @Nullable
+  @Override
+  public Map<String, Integer> getCommandsMap() {
+    return MapBuilder.of(
+        "loadAd", LOAD_AD
+    );
+  }
 
   @Override
-  public void receiveCommand(@Nonnull AdMostAdView view, String commandId,
+  public void receiveCommand(@Nonnull AdMostAdView view, int commandId,
                              @Nullable ReadableArray args) {
-    if (commandId.equals("loadAd")) {
+    if (commandId == LOAD_AD) {
       view.loadAd();
     }
   }

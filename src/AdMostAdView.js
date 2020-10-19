@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  requireNativeComponent,
-  UIManager,
-  findNodeHandle,
-  Platform,
-} from "react-native";
+import { requireNativeComponent, UIManager, findNodeHandle } from "react-native";
 import PropTypes from "prop-types";
 
 const RCTAdMostAdView = requireNativeComponent("RCTAdMostAdView");
@@ -20,23 +15,15 @@ export default class AdMostAdView extends React.PureComponent {
 
   loadAd() {
     UIManager.dispatchViewManagerCommand(
-      findNodeHandle(this.rctAdMostAdView),
-      Platform.OS === "ios"
-        ? UIManager["RCTAdMostAdView"].Commands.loadAd
-        : "loadAd",
-      []
+        findNodeHandle(this.rctAdMostAdView),
+        UIManager["RCTAdMostAdView"].Commands.loadAd,
+        [],
     );
   }
 
   render() {
     const { zoneId, style } = this.props;
-    return (
-      <RCTAdMostAdView
-        ref={(ref) => (this.rctAdMostAdView = ref)}
-        zoneId={zoneId}
-        style={style}
-      />
-    );
+    return <RCTAdMostAdView ref={(ref) => (this.rctAdMostAdView = ref)} zoneId={zoneId} style={style} />;
   }
 }
 
