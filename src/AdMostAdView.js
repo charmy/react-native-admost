@@ -1,5 +1,5 @@
 import React from "react";
-import { requireNativeComponent, UIManager, findNodeHandle } from "react-native";
+import { requireNativeComponent, UIManager, findNodeHandle, Platform } from "react-native";
 import PropTypes from "prop-types";
 
 const RCTAdMostAdView = requireNativeComponent("RCTAdMostAdView");
@@ -16,7 +16,7 @@ export default class AdMostAdView extends React.PureComponent {
   loadAd() {
     UIManager.dispatchViewManagerCommand(
         findNodeHandle(this.rctAdMostAdView),
-        UIManager["RCTAdMostAdView"].Commands.loadAd,
+        Platform.OS === "ios" ? UIManager["RCTAdMostAdView"].Commands.loadAd : "loadAd",
         [],
     );
   }
