@@ -1,20 +1,21 @@
 package com.admost.reactnative;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
+import com.facebook.react.bridge.WritableMap;
 
 import admost.sdk.AdMostView;
 import admost.sdk.listener.AdMostViewListener;
 
 @SuppressLint("ViewConstructor")
 public class AdMostAdView extends FrameLayout {
-  public static final String TAG = AdMostAdView.class.getSimpleName();
 
+  public static final String TAG = AdMostAdView.class.getSimpleName();
   private final ReactContext context;
   private View rootView;
   private ViewGroup adViewGroup;
@@ -45,7 +46,10 @@ public class AdMostAdView extends FrameLayout {
     return new AdMostViewListener() {
       @Override
       public void onReady(String network, int ecpm, View adView) {
-        Log.d(TAG, "AdMostView on ready, network: " + network);
+        WritableMap params = Arguments.createMap();
+        params.putString("network", network);
+
+        AdMostModule.sendEvent("ADMOST_BANNER_ON_READY", params);
 
         adViewGroup.removeAllViews();
         adViewGroup.addView(adView);
@@ -54,12 +58,18 @@ public class AdMostAdView extends FrameLayout {
 
       @Override
       public void onFail(int errorCode) {
-        Log.d(TAG, "AdMostView on fail, errorCode: " + errorCode);
+        WritableMap params = Arguments.createMap();
+        params.putInt("errorCode", errorCode);
+
+        AdMostModule.sendEvent("ADMOST_BANNER_ON_FAIL", params);
       }
 
       @Override
       public void onClick(String network) {
-        Log.d(TAG, "AdMostView on click, network: " + network);
+        WritableMap params = Arguments.createMap();
+        params.putString("network", network);
+
+        AdMostModule.sendEvent("ADMOST_BANNER_ON_CLICK", params);
       }
     };
   }
