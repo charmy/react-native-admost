@@ -10,13 +10,17 @@ export default class AdMostAdView extends React.PureComponent {
 
     if (autoLoad) {
       if (Platform.OS === "ios") {
-        setTimeout(() => this.loadAd(), 100);
+        this.iosLoadTimeout = setTimeout(() => this.loadAd(), 100);
       }
 
       if (Platform.OS === "android") {
         this.loadAd();
       }
     }
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.iosLoadTimeout);
   }
 
   loadAd() {
