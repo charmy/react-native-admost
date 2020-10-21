@@ -18,7 +18,7 @@ class AdMostAdView: UIView, AMRBannerDelegate {
         if mpuBanner == nil {
             mpuBanner = AMRBanner.init(forZoneId: adZoneId as String)
             mpuBanner.delegate = self
-            mpuBanner.bannerWidth = UIScreen.main.bounds.size.width
+            mpuBanner.bannerWidth = self.bounds.size.width
         }
         mpuBanner.load()
     }
