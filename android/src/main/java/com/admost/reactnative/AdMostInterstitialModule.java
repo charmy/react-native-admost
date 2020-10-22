@@ -54,6 +54,7 @@ public class AdMostInterstitialModule extends ReactContextBaseJavaModule impleme
     WritableMap params = Arguments.createMap();
     params.putString("network", network);
     params.putInt("ecpm", ecpm);
+    params.putString("zoneId", zoneId);
 
     AdMostModule.sendEvent("ADMOST_INTERSTITIAL_ON_READY", params);
   }
@@ -62,6 +63,7 @@ public class AdMostInterstitialModule extends ReactContextBaseJavaModule impleme
   public void onFail(int errorCode) {
     WritableMap params = Arguments.createMap();
     params.putInt("errorCode", errorCode);
+    params.putString("zoneId", zoneId);
 
     AdMostModule.sendEvent("ADMOST_INTERSTITIAL_ON_FAIL", params);
   }
@@ -70,6 +72,7 @@ public class AdMostInterstitialModule extends ReactContextBaseJavaModule impleme
   public void onDismiss(String message) {
     WritableMap params = Arguments.createMap();
     params.putString("message", message);
+    params.putString("zoneId", zoneId);
 
     AdMostModule.sendEvent("ADMOST_INTERSTITIAL_ON_DISMISS", params);
   }
@@ -82,6 +85,7 @@ public class AdMostInterstitialModule extends ReactContextBaseJavaModule impleme
   public void onShown(String network) {
     WritableMap params = Arguments.createMap();
     params.putString("network", network);
+    params.putString("zoneId", zoneId);
 
     AdMostModule.sendEvent("ADMOST_INTERSTITIAL_ON_SHOWN", params);
   }
@@ -90,6 +94,7 @@ public class AdMostInterstitialModule extends ReactContextBaseJavaModule impleme
   public void onClicked(String network) {
     WritableMap params = Arguments.createMap();
     params.putString("network", network);
+    params.putString("zoneId", zoneId);
 
     AdMostModule.sendEvent("ADMOST_INTERSTITIAL_ON_CLICKED", params);
   }
@@ -98,6 +103,7 @@ public class AdMostInterstitialModule extends ReactContextBaseJavaModule impleme
   public void onStatusChanged(int statusCode) {
     WritableMap params = Arguments.createMap();
     params.putInt("statusCode", statusCode);
+    params.putString("zoneId", zoneId);
 
     AdMostModule.sendEvent("ADMOST_INTERSTITIAL_ON_STATUS_CHANGED", params);
   }

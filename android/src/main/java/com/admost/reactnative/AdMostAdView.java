@@ -54,6 +54,7 @@ public class AdMostAdView extends FrameLayout implements AdMostViewListener {
   public void onReady(String network, int ecpm, View adView) {
     WritableMap params = Arguments.createMap();
     params.putString("network", network);
+    params.putString("zoneId", zoneId);
 
     AdMostModule.sendEvent("ADMOST_BANNER_ON_READY", params);
 
@@ -66,6 +67,7 @@ public class AdMostAdView extends FrameLayout implements AdMostViewListener {
   public void onFail(int errorCode) {
     WritableMap params = Arguments.createMap();
     params.putInt("errorCode", errorCode);
+    params.putString("zoneId", zoneId);
 
     AdMostModule.sendEvent("ADMOST_BANNER_ON_FAIL", params);
   }
@@ -74,6 +76,7 @@ public class AdMostAdView extends FrameLayout implements AdMostViewListener {
   public void onClick(String network) {
     WritableMap params = Arguments.createMap();
     params.putString("network", network);
+    params.putString("zoneId", zoneId);
 
     AdMostModule.sendEvent("ADMOST_BANNER_ON_CLICK", params);
   }

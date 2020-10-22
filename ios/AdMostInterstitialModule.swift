@@ -37,27 +37,30 @@ class AdMostInterstitialModule: NSObject, AMRInterstitialDelegate {
     }
 
     func didReceive(_ interstitial: AMRInterstitial!) {
-        AdMostModule.instance.sendEvent(eventName: "ADMOST_INTERSTITIAL_ON_READY", body: [])
+        AdMostModule.instance.sendEvent(eventName: "ADMOST_INTERSTITIAL_ON_READY", body: ["zoneId": zoneId])
     }
 
     func didFail(toReceive interstitial: AMRInterstitial!, error: AMRError!) {
-        AdMostModule.instance.sendEvent(eventName: "ADMOST_INTERSTITIAL_ON_FAIL", body: ["errorCode": error.errorCode, "errorDescription": error.errorDescription!])
+        AdMostModule.instance.sendEvent(
+            eventName: "ADMOST_INTERSTITIAL_ON_FAIL",
+            body: ["zoneId": zoneId!, "errorCode": error.errorCode, "errorDescription": error.errorDescription!]
+        )
     }
 
     func didShow(_ interstitial: AMRInterstitial!) {
-        AdMostModule.instance.sendEvent(eventName: "ADMOST_INTERSTITIAL_ON_SHOWN", body: [])
+        AdMostModule.instance.sendEvent(eventName: "ADMOST_INTERSTITIAL_ON_SHOWN", body: ["zoneId": zoneId])
     }
 
     func didClick(_ interstitial: AMRInterstitial!) {
-        AdMostModule.instance.sendEvent(eventName: "ADMOST_INTERSTITIAL_ON_CLICKED", body: [])
+        AdMostModule.instance.sendEvent(eventName: "ADMOST_INTERSTITIAL_ON_CLICKED", body: ["zoneId": zoneId])
     }
 
     func didDismiss(_ interstitial: AMRInterstitial!) {
-        AdMostModule.instance.sendEvent(eventName: "ADMOST_INTERSTITIAL_ON_DISMISS", body: [])
+        AdMostModule.instance.sendEvent(eventName: "ADMOST_INTERSTITIAL_ON_DISMISS", body: ["zoneId": zoneId])
     }
 
     func didInterstitialStateChanged(_ interstitial: AMRInterstitial!, state: AMRAdState) {
-        AdMostModule.instance.sendEvent(eventName: "ADMOST_INTERSTITIAL_ON_STATUS_CHANGED", body: ["statusCode": state])
+        AdMostModule.instance.sendEvent(eventName: "ADMOST_INTERSTITIAL_ON_STATUS_CHANGED", body: ["zoneId": zoneId!, "statusCode": state])
     }
 
 }

@@ -31,15 +31,18 @@ class AdMostAdView: UIView, AMRBannerDelegate {
 
     func didReceive(_ banner: AMRBanner!) {
         self.addSubview(banner.bannerView)
-        AdMostModule.instance.sendEvent(eventName: "ADMOST_BANNER_ON_READY", body: [])
+        AdMostModule.instance.sendEvent(eventName: "ADMOST_BANNER_ON_READY", body: ["zoneId": adZoneId])
     }
 
     func didFail(toReceive banner: AMRBanner!, error: AMRError!) {
-        AdMostModule.instance.sendEvent(eventName: "ADMOST_BANNER_ON_FAIL", body: ["errorCode": error.errorCode, "errorDescription": error.errorDescription!])
+        AdMostModule.instance.sendEvent(
+            eventName: "ADMOST_BANNER_ON_FAIL",
+            body: ["zoneId": adZoneId!, "errorCode": error.errorCode, "errorDescription": error.errorDescription!]
+        )
     }
 
     func didClick(_ banner: AMRBanner!) {
-        AdMostModule.instance.sendEvent(eventName: "ADMOST_BANNER_ON_CLICK", body: [])
+        AdMostModule.instance.sendEvent(eventName: "ADMOST_BANNER_ON_CLICK", body: ["zoneId": adZoneId])
     }
 
     @objc var zoneId: NSString = "" {

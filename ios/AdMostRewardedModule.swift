@@ -37,31 +37,34 @@ class AdMostRewardedModule: NSObject, AMRRewardedVideoDelegate {
     }
 
     func didReceive(_ rewardedVideo: AMRRewardedVideo!) {
-        AdMostModule.instance.sendEvent(eventName: "ADMOST_REWARDED_ON_READY", body: [])
+        AdMostModule.instance.sendEvent(eventName: "ADMOST_REWARDED_ON_READY", body: ["zoneId": zoneId])
     }
 
     func didFail(toReceive rewardedVideo: AMRRewardedVideo!, error: AMRError!) {
-        AdMostModule.instance.sendEvent(eventName: "ADMOST_REWARDED_ON_FAIL", body: ["errorCode": error.errorCode, "errorDescription": error.errorDescription!])
+        AdMostModule.instance.sendEvent(
+            eventName: "ADMOST_REWARDED_ON_FAIL",
+            body: ["zoneId": zoneId!, "errorCode": error.errorCode, "errorDescription": error.errorDescription!]
+        )
     }
 
     func didShow(_ rewardedVideo: AMRRewardedVideo!) {
-        AdMostModule.instance.sendEvent(eventName: "ADMOST_REWARDED_ON_SHOWN", body: [])
+        AdMostModule.instance.sendEvent(eventName: "ADMOST_REWARDED_ON_SHOWN", body: ["zoneId": zoneId])
     }
 
     func didClick(_ rewardedVideo: AMRRewardedVideo!) {
-        AdMostModule.instance.sendEvent(eventName: "ADMOST_REWARDED_ON_CLICKED", body: [])
+        AdMostModule.instance.sendEvent(eventName: "ADMOST_REWARDED_ON_CLICKED", body: ["zoneId": zoneId])
     }
 
     func didComplete(_ rewardedVideo: AMRRewardedVideo!) {
-        AdMostModule.instance.sendEvent(eventName: "ADMOST_REWARDED_ON_COMPLETE", body: [])
+        AdMostModule.instance.sendEvent(eventName: "ADMOST_REWARDED_ON_COMPLETE", body: ["zoneId": zoneId])
     }
 
     func didDismiss(_ rewardedVideo: AMRRewardedVideo!) {
-        AdMostModule.instance.sendEvent(eventName: "ADMOST_REWARDED_ON_DISMISS", body: [])
+        AdMostModule.instance.sendEvent(eventName: "ADMOST_REWARDED_ON_DISMISS", body: ["zoneId": zoneId])
     }
 
     func didRewardedVideoStateChanged(_ rewardedVideo: AMRRewardedVideo!, state: AMRAdState) {
-        AdMostModule.instance.sendEvent(eventName: "ADMOST_REWARDED_ON_STATUS_CHANGED", body: ["statusCode": state])
+        AdMostModule.instance.sendEvent(eventName: "ADMOST_REWARDED_ON_STATUS_CHANGED", body: ["zoneId": zoneId!, "statusCode": state])
     }
 
 }

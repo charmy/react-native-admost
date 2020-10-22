@@ -54,6 +54,7 @@ public class AdMostRewardedModule extends ReactContextBaseJavaModule implements 
     WritableMap params = Arguments.createMap();
     params.putString("network", network);
     params.putInt("ecpm", ecpm);
+    params.putString("zoneId", zoneId);
 
     AdMostModule.sendEvent("ADMOST_REWARDED_ON_READY", params);
   }
@@ -62,6 +63,7 @@ public class AdMostRewardedModule extends ReactContextBaseJavaModule implements 
   public void onFail(int errorCode) {
     WritableMap params = Arguments.createMap();
     params.putInt("errorCode", errorCode);
+    params.putString("zoneId", zoneId);
 
     AdMostModule.sendEvent("ADMOST_REWARDED_ON_FAIL", params);
   }
@@ -70,6 +72,7 @@ public class AdMostRewardedModule extends ReactContextBaseJavaModule implements 
   public void onDismiss(String message) {
     WritableMap params = Arguments.createMap();
     params.putString("message", message);
+    params.putString("zoneId", zoneId);
 
     AdMostModule.sendEvent("ADMOST_REWARDED_ON_DISMISS", params);
   }
@@ -78,6 +81,7 @@ public class AdMostRewardedModule extends ReactContextBaseJavaModule implements 
   public void onComplete(String network) {
     WritableMap params = Arguments.createMap();
     params.putString("network", network);
+    params.putString("zoneId", zoneId);
 
     AdMostModule.sendEvent("ADMOST_REWARDED_ON_COMPLETE", params);
   }
@@ -86,6 +90,7 @@ public class AdMostRewardedModule extends ReactContextBaseJavaModule implements 
   public void onShown(String network) {
     WritableMap params = Arguments.createMap();
     params.putString("network", network);
+    params.putString("zoneId", zoneId);
 
     AdMostModule.sendEvent("ADMOST_REWARDED_ON_SHOWN", params);
   }
@@ -94,6 +99,7 @@ public class AdMostRewardedModule extends ReactContextBaseJavaModule implements 
   public void onClicked(String network) {
     WritableMap params = Arguments.createMap();
     params.putString("network", network);
+    params.putString("zoneId", zoneId);
 
     AdMostModule.sendEvent("ADMOST_REWARDED_ON_CLICKED", params);
   }
@@ -102,6 +108,7 @@ public class AdMostRewardedModule extends ReactContextBaseJavaModule implements 
   public void onStatusChanged(int statusCode) {
     WritableMap params = Arguments.createMap();
     params.putInt("statusCode", statusCode);
+    params.putString("zoneId", zoneId);
 
     AdMostModule.sendEvent("ADMOST_REWARDED_ON_STATUS_CHANGED", params);
   }
