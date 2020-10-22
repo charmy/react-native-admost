@@ -11,10 +11,9 @@ import com.facebook.react.bridge.WritableMap;
 import admost.sdk.AdMostInterstitial;
 import admost.sdk.listener.AdMostAdListener;
 
-public class AdMostRewardedModule extends ReactContextBaseJavaModule {
+public class AdMostRewardedModule extends ReactContextBaseJavaModule implements AdMostAdListener {
 
   private static final String TAG = AdMostRewardedModule.class.getSimpleName();
-  private final AdMostAdListener adListener;
   private final ReactApplicationContext reactContext;
   private AdMostInterstitial adMostRewarded;
   private String zoneId = "";
@@ -22,7 +21,6 @@ public class AdMostRewardedModule extends ReactContextBaseJavaModule {
   public AdMostRewardedModule(ReactApplicationContext reactContext) {
     super(reactContext);
     this.reactContext = reactContext;
-    this.adListener = createAdListener();
   }
 
   @NonNull
@@ -38,73 +36,73 @@ public class AdMostRewardedModule extends ReactContextBaseJavaModule {
         this.adMostRewarded.destroy();
       }
 
-      this.adMostRewarded = new AdMostInterstitial(getCurrentActivity(), zoneId, this.adListener);
+      this.adMostRewarded = new AdMostInterstitial(getCurrentActivity(), zoneId, this);
       this.adMostRewarded.refreshAd(false);
       this.zoneId = zoneId;
     }
 
+    this.adMostRewarded.refreshAd(false);
+  }
+
+  @ReactMethod
+  public void showAd() {
     this.adMostRewarded.show();
   }
 
-  private AdMostAdListener createAdListener() {
-    return new AdMostAdListener() {
+  @Override
+  public void onReady(String network, int ecpm) {
+    WritableMap params = Arguments.createMap();
+    params.putString("network", network);
+    params.putInt("ecpm", ecpm);
 
-      @Override
-      public void onReady(String network, int ecpm) {
-        WritableMap params = Arguments.createMap();
-        params.putString("network", network);
-        params.putInt("ecpm", ecpm);
+    AdMostModule.sendEvent("ADMOST_REWARDED_ON_READY", params);
+  }
 
-        AdMostModule.sendEvent("ADMOST_REWARDED_ON_READY", params);
-      }
+  @Override
+  public void onFail(int errorCode) {
+    WritableMap params = Arguments.createMap();
+    params.putInt("errorCode", errorCode);
 
-      @Override
-      public void onFail(int errorCode) {
-        WritableMap params = Arguments.createMap();
-        params.putInt("errorCode", errorCode);
+    AdMostModule.sendEvent("ADMOST_REWARDED_ON_FAIL", params);
+  }
 
-        AdMostModule.sendEvent("ADMOST_REWARDED_ON_FAIL", params);
-      }
+  @Override
+  public void onDismiss(String message) {
+    WritableMap params = Arguments.createMap();
+    params.putString("message", message);
 
-      @Override
-      public void onDismiss(String message) {
-        WritableMap params = Arguments.createMap();
-        params.putString("message", message);
+    AdMostModule.sendEvent("ADMOST_REWARDED_ON_DISMISS", params);
+  }
 
-        AdMostModule.sendEvent("ADMOST_REWARDED_ON_DISMISS", params);
-      }
+  @Override
+  public void onComplete(String network) {
+    WritableMap params = Arguments.createMap();
+    params.putString("network", network);
 
-      @Override
-      public void onComplete(String network) {
-        WritableMap params = Arguments.createMap();
-        params.putString("network", network);
+    AdMostModule.sendEvent("ADMOST_REWARDED_ON_COMPLETE", params);
+  }
 
-        AdMostModule.sendEvent("ADMOST_REWARDED_ON_COMPLETE", params);
-      }
+  @Override
+  public void onShown(String network) {
+    WritableMap params = Arguments.createMap();
+    params.putString("network", network);
 
-      @Override
-      public void onShown(String network) {
-        WritableMap params = Arguments.createMap();
-        params.putString("network", network);
+    AdMostModule.sendEvent("ADMOST_REWARDED_ON_SHOWN", params);
+  }
 
-        AdMostModule.sendEvent("ADMOST_REWARDED_ON_SHOWN", params);
-      }
+  @Override
+  public void onClicked(String network) {
+    WritableMap params = Arguments.createMap();
+    params.putString("network", network);
 
-      @Override
-      public void onClicked(String network) {
-        WritableMap params = Arguments.createMap();
-        params.putString("network", network);
+    AdMostModule.sendEvent("ADMOST_REWARDED_ON_CLICKED", params);
+  }
 
-        AdMostModule.sendEvent("ADMOST_REWARDED_ON_CLICKED", params);
-      }
+  @Override
+  public void onStatusChanged(int statusCode) {
+    WritableMap params = Arguments.createMap();
+    params.putInt("statusCode", statusCode);
 
-      @Override
-      public void onStatusChanged(int statusCode) {
-        WritableMap params = Arguments.createMap();
-        params.putInt("statusCode", statusCode);
-
-        AdMostModule.sendEvent("ADMOST_REWARDED_ON_STATUS_CHANGED", params);
-      }
-    };
+    AdMostModule.sendEvent("ADMOST_REWARDED_ON_STATUS_CHANGED", params);
   }
 }
