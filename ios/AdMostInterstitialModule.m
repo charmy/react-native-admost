@@ -1,9 +1,12 @@
-//#import <React/RCTBridgeModule.h>
-//
-//@interface RCT_EXTERN_MODULE(AdMost, NSObject)
-//
-//RCT_EXTERN_METHOD(initAdMost:
-//                  (nonnull NSDictionary) config
-//                  resolver:(RCTPromiseResolveBlock)resolve
-//                  rejecter:(RCTPromiseRejectBlock)reject)
-//@end
+#import <React/RCTBridgeModule.h>
+
+@interface RCT_EXTERN_REMAP_MODULE(AdMostInterstitial, AdMostInterstitialModule, NSObject)
+
+RCT_EXTERN_METHOD(loadAd:
+                  (nonnull NSString) zoneId
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXTERN_METHOD(showAd:
+                  (RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
+@end

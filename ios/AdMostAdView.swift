@@ -19,6 +19,10 @@ class AdMostAdView: UIView, AMRBannerDelegate {
             mpuBanner = AMRBanner.init(forZoneId: adZoneId as String)
             mpuBanner.delegate = self
             mpuBanner.bannerWidth = self.bounds.size.width
+
+            //todo: custom ad
+            //bannerCustom200x200.customNativeSize = CGSize(width: 200.0, height: 200.0)
+            //bannerCustom200x200.customeNativeXibName = "CustomNative200x200"
         }
         mpuBanner.load()
     }
