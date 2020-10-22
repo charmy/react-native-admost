@@ -10,6 +10,7 @@ import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.WritableMap;
 
 import admost.sdk.AdMostView;
+import admost.sdk.AdMostViewBinder;
 import admost.sdk.listener.AdMostViewListener;
 
 @SuppressLint("ViewConstructor")
@@ -20,6 +21,7 @@ public class AdMostAdView extends FrameLayout implements AdMostViewListener {
   private View rootView;
   private ViewGroup adViewGroup;
   private String zoneId;
+  private String layoutName = "DEFAULT";
   private AdMostView adMostView;
 
   public AdMostAdView(ReactContext context) {
@@ -35,13 +37,15 @@ public class AdMostAdView extends FrameLayout implements AdMostViewListener {
 
   @Override
   protected void onDetachedFromWindow() {
-    adMostView.destroy();
+    if (adMostView != null) {
+      adMostView.destroy();
+    }
     super.onDetachedFromWindow();
   }
 
   public void loadAd() {
     if (adMostView == null) {
-      this.adMostView = new AdMostView(context.getCurrentActivity(), this.zoneId, 0, this, null);
+      this.adMostView = new AdMostView(context.getCurrentActivity(), this.zoneId, 0, this, getAdMostViewBinder());
     }
     adMostView.load();
   }
@@ -83,8 +87,38 @@ public class AdMostAdView extends FrameLayout implements AdMostViewListener {
     view.layout(view.getLeft(), view.getTop(), view.getRight(), view.getBottom());
   }
 
+  private AdMostViewBinder getAdMostViewBinder() {
+    if (layoutName.equals("DEFAULT")) {
+      return null;
+    }
+
+    int layoutId = getLayoutIdWithName(layoutName);
+    if (layoutId == 0) {
+      throw new AdMostException("'" + layoutName + "' not found");
+    }
+
+    return new AdMostViewBinder.Builder(layoutId)
+        .iconImageId(R.id.ad_app_icon)
+        .titleId(R.id.ad_headline)
+        .callToActionId(R.id.ad_call_to_action)
+        .textId(R.id.ad_body)
+        .attributionId(R.id.ad_attribution)
+        .mainImageId(R.id.ad_image)
+        .backImageId(R.id.ad_back)
+        .privacyIconId(R.id.ad_privacy_icon)
+        .isRoundedMode(true)
+        .build();
+  }
+
+  private int getLayoutIdWithName(String layoutName) {
+    return getResources().getIdentifier(layoutName, "layout", context.getPackageName());
+  }
+
   public void setZoneId(String zoneId) {
     this.zoneId = zoneId;
   }
 
+  public void setLayoutName(String layoutName) {
+    this.layoutName = layoutName;
+  }
 }

@@ -32,16 +32,25 @@ export default class AdMostAdView extends React.PureComponent {
   }
 
   render() {
-    const { zoneId, style } = this.props;
-    return <RCTAdMostAdView ref={(ref) => (this.rctAdMostAdView = ref)} zoneId={zoneId} style={style} />;
+    const { zoneId, layoutName, style } = this.props;
+    return (
+        <RCTAdMostAdView
+            ref={(ref) => (this.rctAdMostAdView = ref)}
+            zoneId={zoneId}
+            layoutName={layoutName}
+            style={style}
+        />
+    );
   }
 }
 
 AdMostAdView.propTypes = {
-  zoneId: PropTypes.string,
+  zoneId: PropTypes.string.isRequired,
+  layoutName: PropTypes.string,
   autoLoad: PropTypes.bool,
 };
 
 AdMostAdView.defaultProps = {
   autoLoad: true,
+  layoutName: "DEFAULT",
 };

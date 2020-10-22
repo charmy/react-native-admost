@@ -4,7 +4,8 @@ import AMRSDK
 class AdMostAdView: UIView, AMRBannerDelegate {
 
     var mpuBanner: AMRBanner!
-    var adZoneId: NSString = ""
+    var adZoneId: NSString!
+    var adLayoutName: NSString!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -20,9 +21,10 @@ class AdMostAdView: UIView, AMRBannerDelegate {
             mpuBanner.delegate = self
             mpuBanner.bannerWidth = self.bounds.size.width
 
-            //todo: custom ad
-            //bannerCustom200x200.customNativeSize = CGSize(width: 200.0, height: 200.0)
-            //bannerCustom200x200.customeNativeXibName = "CustomNative200x200"
+            if adLayoutName != "DEFAULT" {
+                mpuBanner.customNativeSize = CGSize(width: self.bounds.size.width, height: self.bounds.size.height)
+                mpuBanner.customeNativeXibName = adLayoutName as String?
+            }
         }
         mpuBanner.load()
     }
@@ -43,6 +45,12 @@ class AdMostAdView: UIView, AMRBannerDelegate {
     @objc var zoneId: NSString = "" {
         didSet {
             adZoneId = zoneId;
+        }
+    }
+
+    @objc var layoutName: NSString = "DEFAULT" {
+        didSet {
+            adLayoutName = layoutName;
         }
     }
 }

@@ -37,4 +37,9 @@ public class AdMostAdViewManager extends SimpleViewManager<AdMostAdView> {
   public void setZoneId(AdMostAdView view, String zoneId) {
     view.setZoneId(zoneId);
   }
+
+  @ReactProp(name = "layoutName")
+  public void setLayoutName(AdMostAdView view, String layoutName) {
+    view.setLayoutName(layoutName);
+  }
 }

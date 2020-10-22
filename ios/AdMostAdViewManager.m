@@ -4,6 +4,8 @@
 
 RCT_EXPORT_VIEW_PROPERTY(zoneId, NSString)
 
+RCT_EXPORT_VIEW_PROPERTY(layoutName, NSString)
+
 RCT_EXTERN_METHOD(loadAd:(nonnull NSNumber *)node)
 
 @end
