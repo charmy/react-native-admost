@@ -97,7 +97,7 @@ public class AdMostAdView extends FrameLayout implements AdMostViewListener {
 
     int layoutId = getLayoutIdWithName(layoutName);
     if (layoutId == 0) {
-      throw new AdMostException("'" + layoutName + "' not found");
+      return null;
     }
 
     return new AdMostViewBinder.Builder(layoutId)
