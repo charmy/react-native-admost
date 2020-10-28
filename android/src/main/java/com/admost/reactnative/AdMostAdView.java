@@ -35,14 +35,6 @@ public class AdMostAdView extends FrameLayout implements AdMostViewListener {
     return new AdMostAdView(reactContext);
   }
 
-  @Override
-  protected void onDetachedFromWindow() {
-    if (adMostView != null) {
-      adMostView.destroy();
-    }
-    super.onDetachedFromWindow();
-  }
-
   public void loadAd() {
     if (adMostView == null) {
       this.adMostView = new AdMostView(context.getCurrentActivity(), this.zoneId, 0, this, getAdMostViewBinder());
