@@ -6,6 +6,10 @@
 $ npm install @up-inside/react-native-admost --save
 ```
 
+# Custom layout
+
+- Document will be added
+
 ### iOS With CocoaPods
 
 ```shell script
