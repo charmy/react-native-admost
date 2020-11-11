@@ -29,4 +29,16 @@ export const RewardedAdEvents = {
     ON_STATUS_CHANGED: "ADMOST_REWARDED_ON_STATUS_CHANGED",
 };
 
+if (__DEV__) {
+    AdMostEventEmitter.addListener(BannerAdEvents.ON_READY, (e) => {
+        console.debug("AdMostBannerAdEventEmitter.ON_READY", e);
+    });
+    AdMostEventEmitter.addListener(BannerAdEvents.ON_FAIL, (e) => {
+        console.debug("AdMostBannerAdEventEmitter.ON_FAIL", e);
+    });
+    AdMostEventEmitter.addListener(BannerAdEvents.ON_CLICK, (e) => {
+        console.debug("AdMostBannerAdEventEmitter.ON_CLICK", e);
+    });
+}
+
 export default AdMost;
