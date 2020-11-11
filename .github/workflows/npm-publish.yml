@@ -23,7 +23,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 15
-          registry-url: https://registry.npmjs.org
+          registry-url: https://registry.npmjs.org/
       - run: npm publish --access public
         env:
           NPM_AUTH_TOKEN: ${{secrets.NPM_ACCESS_TOKEN}}
