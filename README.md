@@ -85,7 +85,7 @@ export default class App extends React.Component {
 | autoLoad             | false    | bool     | true          | Load ad when AdmostAdView is mount                                       | 
 
 #### Methods
-| Name             | Params             | Return  | Descriptipon                                 |
+| Name             | Params             | Return  | Description                                 |
 |------------------|--------------------|---------|----------------------------------------------|
 | loadAd           |                    | void    | Load ad manually                             |
 
@@ -167,10 +167,10 @@ export default class SplashScreen extends React.Component {
 
 
 #### Methods
-| Name             | Params             | Return  | Descriptipon                                                           |
+| Name             | Params             | Return  | Description                                                           |
 |------------------|--------------------|---------|----------------------------------------|
-| loadAd           | zoneId             | void    |                                        |
-| showAd           |                    | void    |                                        |
+| loadAd           | zoneId             | void    | Load ad                                |
+| showAd           |                    | void    | show when ad is ready                  |
 
 #### Events
 | Name                 |
@@ -264,10 +264,10 @@ export default class SplashScreen extends React.Component {
 ```
 
 #### Methods
-| Name             | Params             | Return  | Descriptipon                                                           |
+| Name             | Params             | Return  | Description                                                           |
 |------------------|--------------------|---------|----------------------------------------|
 | loadAd           | zoneId             | void    | Load ad                                |
-| showAd           |                    | void    | Show ad                                |
+| showAd           |                    | void    | show when ad is ready                  |
 
 #### Events
 | Name                 |
