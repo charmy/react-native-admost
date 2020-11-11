@@ -1,7 +1,7 @@
 {
   "name": "@up-inside/react-native-admost",
   "title": "React Native Admost",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "description": "Admost react-native implementation",
   "main": "src/index.js",
   "files": [
