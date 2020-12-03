@@ -14,15 +14,9 @@ $ npm install @up-inside/react-native-admost --save
 - You should follow the "Edit Files" section on [AdMost](https://admost.github.io/amrandroid/#edit-files)
 - These dependencies already exist in gradle
 ```
-  implementation 'com.android.volley:volley:1.1.0'
-  implementation 'com.admost.sdk:amr:2.1.8'
-  implementation 'com.google.android.gms:play-services-base:16.1.0'
-  implementation 'com.admost.sdk:admost:0.1.3.a20'
-  implementation 'com.google.android.gms:play-services-ads:17.2.1'
-  implementation 'com.admost.sdk:admob-gt-17.2.0-adapter:1.0.5.a20'
-  implementation 'com.admost.sdk:facebook:5.11.0.a20'
-  implementation 'com.android.support:recyclerview-v7:28.0.0'
-  implementation 'com.admost.sdk:s2sbidding-adapter:0.0.1.a20'
+  implementation 'com.android.volley:volley:1.1.1'
+  implementation 'com.admost.sdk:amr:2.2.2'
+  implementation 'com.google.android.gms:play-services-base:17.1.0'
 ```
 
 ### iOS
@@ -30,9 +24,6 @@ $ npm install @up-inside/react-native-admost --save
 - These dependencies already exist in pod
 ```
   s.dependency "AMRSDK", "~> 1.4"
-  s.dependency "AMRAdapterAdmob", "~> 7.65"
-  s.dependency "AMRAdapterAdmost", "~> 1.3"
-  s.dependency 'AMRAdapterFacebook', '~> 5.10'
 ```
 
 ## Usage

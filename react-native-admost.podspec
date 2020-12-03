@@ -16,8 +16,5 @@ Pod::Spec.new do |s|
 
   s.dependency "React"
   s.dependency "AMRSDK", "~> 1.4"
-  s.dependency "AMRAdapterAdmob", "~> 7.65"
-  s.dependency "AMRAdapterAdmost", "~> 1.3"
-  s.dependency 'AMRAdapterFacebook', '~> 5.10'
 
 end
