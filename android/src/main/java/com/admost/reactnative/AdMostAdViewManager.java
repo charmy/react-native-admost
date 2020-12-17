@@ -28,8 +28,13 @@ public class AdMostAdViewManager extends SimpleViewManager<AdMostAdView> {
   @Override
   public void receiveCommand(@Nonnull AdMostAdView view, String commandId,
                              @Nullable ReadableArray args) {
-    if (commandId.equals("loadAd")) {
-      view.loadAd();
+    switch (commandId) {
+      case "loadAd":
+        view.loadAd();
+        break;
+      case "destroyAd":
+        view.destroyAd();
+        break;
     }
   }
 

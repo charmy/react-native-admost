@@ -42,6 +42,12 @@ public class AdMostAdView extends FrameLayout implements AdMostViewListener {
     adMostView.load();
   }
 
+  public void destroyAd() {
+    if (adMostView != null) {
+      adMostView.destroy();
+    }
+  }
+
   @Override
   public void onReady(String network, int ecpm, View adView) {
     WritableMap params = Arguments.createMap();

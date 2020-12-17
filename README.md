@@ -95,6 +95,7 @@ export default class App extends React.Component {
 |----------------------|----------|----------|---------------|--------------------------------------------------------------------------|
 | zoneId               | true     | string   |               | AdMost zoneId                                                            |
 | layoutName           | false    | string   | DEFAULT       | Custom layout name(layout_admost_native_250, CustomNative200x200)        |                                                             |
+| autoLoadDelayMs      | false    | number   | 100           | Auto load delay (min 100 ms)                                             | 
 | autoLoad             | false    | bool     | true          | Load ad when AdmostAdView is mount                                       | 
 
 #### Methods

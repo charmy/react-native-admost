@@ -29,6 +29,10 @@ class AdMostAdView: UIView, AMRBannerDelegate {
         mpuBanner.load()
     }
 
+    func destroyAd() {
+
+    }
+
     func didReceive(_ banner: AMRBanner!) {
         self.addSubview(banner.bannerView)
         AdMostModule.instance.sendEvent(eventName: "ADMOST_BANNER_ON_READY", body: ["zoneId": adZoneId])

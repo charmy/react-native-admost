@@ -6,21 +6,30 @@ const RCTAdMostAdView = requireNativeComponent("RCTAdMostAdView");
 
 export default class AdMostAdView extends React.PureComponent {
   componentDidMount() {
-    const { autoLoad } = this.props;
+    const { autoLoadDelayMs, autoLoad } = this.props;
 
     if (autoLoad) {
-      this.loadTimeout = setTimeout(() => this.loadAd(), 100);
+      this.loadTimeout = setTimeout(() => this.loadAd(), Math.max(100, autoLoadDelayMs));
     }
   }
 
   componentWillUnmount() {
     clearTimeout(this.loadTimeout);
+    this.destroyAd();
   }
 
   loadAd() {
     UIManager.dispatchViewManagerCommand(
         findNodeHandle(this.rctAdMostAdView),
         Platform.OS === "ios" ? UIManager["RCTAdMostAdView"].Commands.loadAd : "loadAd",
+        [],
+    );
+  }
+
+  destroyAd() {
+    UIManager.dispatchViewManagerCommand(
+        findNodeHandle(this.rctAdMostAdView),
+        Platform.OS === "ios" ? UIManager["RCTAdMostAdView"].Commands.destroyAd : "destroyAd",
         [],
     );
   }
@@ -40,11 +49,13 @@ export default class AdMostAdView extends React.PureComponent {
 
 AdMostAdView.propTypes = {
   zoneId: PropTypes.string.isRequired,
+  autoLoadDelayMs: PropTypes.number,
   layoutName: PropTypes.string,
   autoLoad: PropTypes.bool,
 };
 
 AdMostAdView.defaultProps = {
+  autoLoadDelayMs: 100,
   autoLoad: true,
   layoutName: "DEFAULT",
 };
