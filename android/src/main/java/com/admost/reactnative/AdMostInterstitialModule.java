@@ -3,6 +3,7 @@ package com.admost.reactnative;
 import androidx.annotation.NonNull;
 
 import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -47,6 +48,16 @@ public class AdMostInterstitialModule extends ReactContextBaseJavaModule impleme
   @ReactMethod
   public void showAd() {
     this.adMostInterstitial.show();
+  }
+
+  @ReactMethod
+  public void isLoading(final Promise promise) {
+    promise.resolve(this.adMostInterstitial.isLoading());
+  }
+
+  @ReactMethod
+  public void isLoaded(final Promise promise) {
+    promise.resolve(this.adMostInterstitial.isLoaded());
   }
 
   @Override

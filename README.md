@@ -185,6 +185,8 @@ export default class SplashScreen extends React.Component {
 |------------------|--------------------|---------|----------------------------------------|
 | loadAd           | zoneId             | void    | Load ad                                |
 | showAd           |                    | void    | show when ad is ready                  |
+| isLoading        |                    | promise |                                        |
+| isLoaded         |                    | promise |                                        |
 
 #### Events
 | Name                 |
@@ -282,6 +284,8 @@ export default class SplashScreen extends React.Component {
 |------------------|--------------------|---------|----------------------------------------|
 | loadAd           | zoneId             | void    | Load ad                                |
 | showAd           |                    | void    | show when ad is ready                  |
+| isLoading        |                    | promise |                                        |
+| isLoaded         |                    | promise |                                        |
 
 #### Events
 | Name                 |

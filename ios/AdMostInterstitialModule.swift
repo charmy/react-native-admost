@@ -36,6 +36,22 @@ class AdMostInterstitialModule: NSObject, AMRInterstitialDelegate {
         interstitial.show(from: UIApplication.shared.delegate?.window??.rootViewController)
     }
 
+    @objc
+    func isLoading(
+        _ resolve: RCTPromiseResolveBlock,
+        rejecter reject: RCTPromiseRejectBlock
+    ) -> Void {
+        resolve(interstitial.isLoading)
+    }
+
+    @objc
+    func isLoaded(
+        _ resolve: RCTPromiseResolveBlock,
+        rejecter reject: RCTPromiseRejectBlock
+    ) -> Void {
+        resolve(interstitial.isLoaded)
+    }
+
     func didReceive(_ interstitial: AMRInterstitial!) {
         AdMostModule.instance.sendEvent(eventName: "ADMOST_INTERSTITIAL_ON_READY", body: ["zoneId": zoneId])
     }

@@ -36,6 +36,22 @@ class AdMostRewardedModule: NSObject, AMRRewardedVideoDelegate {
         rewardedVideo.show(from: UIApplication.shared.delegate?.window??.rootViewController)
     }
 
+    @objc
+    func isLoading(
+        _ resolve: RCTPromiseResolveBlock,
+        rejecter reject: RCTPromiseRejectBlock
+    ) -> Void {
+        resolve(rewardedVideo.isLoading)
+    }
+
+    @objc
+    func isLoaded(
+        _ resolve: RCTPromiseResolveBlock,
+        rejecter reject: RCTPromiseRejectBlock
+    ) -> Void {
+        resolve(rewardedVideo.isLoaded)
+    }
+
     func didReceive(_ rewardedVideo: AMRRewardedVideo!) {
         AdMostModule.instance.sendEvent(eventName: "ADMOST_REWARDED_ON_READY", body: ["zoneId": zoneId])
     }
