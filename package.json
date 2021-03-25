@@ -1,7 +1,7 @@
 {
   "name": "@up-inside/react-native-admost",
   "title": "React Native Admost",
-  "version": "1.1.15",
+  "version": "1.1.16",
   "description": "Admost react-native implementation",
   "main": "src/index.js",
   "files": [
@@ -31,13 +31,5 @@
   },
   "license": "MIT",
   "licenseFilename": "LICENSE",
-  "readmeFilename": "README.md",
-  "peerDependencies": {
-    "react": "*",
-    "react-native": "*"
-  },
-  "devDependencies": {
-    "react": "^16.9.0",
-    "react-native": "^0.61.5"
-  }
+  "readmeFilename": "README.md"
 }
