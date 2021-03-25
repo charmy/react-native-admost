@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.source_files = "ios/**/*.{h,c,m,swift}"
   s.resources    = ['CustomXibs/*']
 
-  s.dependency "React"
+  s.dependency 'React-Core'
   s.dependency "AMRSDK", "~> 1.4"
 
 end
