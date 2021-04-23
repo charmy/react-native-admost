@@ -6,13 +6,20 @@ RCT_EXTERN_METHOD(loadAd:
                   (nonnull NSString) zoneId
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXTERN_METHOD(destroyAd:
+                  (nonnull NSString) zoneId
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
 RCT_EXTERN_METHOD(showAd:
-                  (RCTPromiseResolveBlock)resolve
+                  (nonnull NSString) zoneId
+                  resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 RCT_EXTERN_METHOD(isLoading:
-                  (RCTPromiseResolveBlock)resolve
+                  (nonnull NSString) zoneId
+                  resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 RCT_EXTERN_METHOD(isLoaded:
-                  (RCTPromiseResolveBlock)resolve
+                  (nonnull NSString) zoneId
+                  resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 @end

@@ -15,7 +15,7 @@ $ npm install @up-inside/react-native-admost --save
 - These dependencies already exist in gradle
 ```
   implementation 'com.android.volley:volley:1.1.1'
-  implementation 'com.admost.sdk:amr:2.2.2'
+  implementation 'com.admost.sdk:amr:2.2.9'
   implementation 'com.google.android.gms:play-services-base:17.1.0'
 ```
 
@@ -184,19 +184,20 @@ export default class SplashScreen extends React.Component {
 | Name             | Params             | Return  | Description                                                           |
 |------------------|--------------------|---------|----------------------------------------|
 | loadAd           | zoneId             | void    | Load ad                                |
-| showAd           |                    | void    | show when ad is ready                  |
-| isLoading        |                    | promise |                                        |
-| isLoaded         |                    | promise |                                        |
+| destroyAd        | zoneId             | void    | Destroy Ad                             |
+| showAd           | zoneId             | promise | Show when ad is ready                  |
+| isLoading        | zoneId             | promise | Ad is loading                          |
+| isLoaded         | zoneId             | promise | Ad is loaded                           |
 
 #### Events
-| Name                 |
-|----------------------|
-| ON_READY             |
-| ON_FAIL              |
-| ON_DISMISS           |
-| ON_SHOWN             |
-| ON_CLICKED           |
-| ON_STATUS_CHANGED    |
+| Name                 | Params                                            |
+|----------------------|---------------------------------------------------|
+| ON_READY             | network, ecpm, zoneId                             |
+| ON_FAIL              | errorCode(Android), errorDescription(IOS), zoneId |
+| ON_DISMISS           | message(Android), zoneId                          |
+| ON_SHOWN             | network, zoneId                                   |
+| ON_CLICKED           | network, zoneId                                   |
+| ON_STATUS_CHANGED    | statusCode, zoneId                                |
 
 ### AdMostRewarded
 ```javascript
@@ -283,17 +284,18 @@ export default class SplashScreen extends React.Component {
 | Name             | Params             | Return  | Description                                                           |
 |------------------|--------------------|---------|----------------------------------------|
 | loadAd           | zoneId             | void    | Load ad                                |
-| showAd           |                    | void    | show when ad is ready                  |
-| isLoading        |                    | promise |                                        |
-| isLoaded         |                    | promise |                                        |
+| destroyAd        | zoneId             | void    | Destroy Ad                             |
+| showAd           | zoneId             | promise | Show when ad is ready                  |
+| isLoading        | zoneId             | promise | Ad is loading                          |
+| isLoaded         | zoneId             | promise | Ad is loaded                           |
 
 #### Events
-| Name                 |
-|----------------------|
-| ON_READY             |
-| ON_FAIL              |
-| ON_DISMISS           |
-| ON_COMPLETE          |
-| ON_SHOWN             |
-| ON_CLICKED           |
-| ON_STATUS_CHANGED    |
+| Name                 | Params                                            |
+|----------------------|---------------------------------------------------|
+| ON_READY             | network, ecpm, zoneId                             |
+| ON_FAIL              | errorCode(Android), errorDescription(IOS), zoneId |
+| ON_DISMISS           | message(Android), zoneId                          |
+| ON_COMPLETE          | network, zoneId                                   |
+| ON_SHOWN             | network, zoneId                                   |
+| ON_CLICKED           | network, zoneId                                   |
+| ON_STATUS_CHANGED    | statusCode, zoneId                                |

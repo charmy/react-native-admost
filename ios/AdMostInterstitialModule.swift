@@ -5,8 +5,7 @@ import AdSupport
 @objc(AdMostInterstitialModule)
 class AdMostInterstitialModule: NSObject, AMRInterstitialDelegate {
 
-    var interstitial: AMRInterstitial!
-    var zoneId: String!
+    var adMostInterstitialDict: Dictionary<String, AMRInterstitial> = [:] // zoneId -> AMRInterstitial
 
     @objc static func requiresMainQueueSetup() -> Bool {
         return true
@@ -14,69 +13,123 @@ class AdMostInterstitialModule: NSObject, AMRInterstitialDelegate {
 
     @objc
     func loadAd(
-        _ zoneId: NSString,
-        resolver resolve: RCTPromiseResolveBlock,
-        rejecter reject: RCTPromiseRejectBlock
+            _ zoneId: NSString,
+            resolver resolve: RCTPromiseResolveBlock,
+            rejecter reject: RCTPromiseRejectBlock
     ) -> Void {
+        let adMostInterstitial = adMostInterstitialDict[zoneId as String]
 
-        if self.interstitial == nil || self.zoneId != zoneId as String {
-            self.interstitial = AMRInterstitial(forZoneId: zoneId as String)
-            self.interstitial.delegate = self
-            self.zoneId = zoneId as String
+        if adMostInterstitial == nil {
+            let newAdMostInterstitial: AMRInterstitial = AMRInterstitial(forZoneId: zoneId as String)
+            newAdMostInterstitial.delegate = self
+            adMostInterstitialDict[zoneId as String] = newAdMostInterstitial
+
+            newAdMostInterstitial.load()
+            return;
         }
 
-        self.interstitial.load()
+        adMostInterstitial?.load()
+    }
+
+    @objc
+    func destroyAd(
+            _ zoneId: NSString,
+            resolver resolve: RCTPromiseResolveBlock,
+            rejecter reject: RCTPromiseRejectBlock
+    ) -> Void {
+        let adMostInterstitial = adMostInterstitialDict[zoneId as String]
+
+        if adMostInterstitial != nil {
+            // todo: destroy adMostAd
+            adMostInterstitialDict.removeValue(forKey: zoneId as String)
+        }
     }
 
     @objc
     func showAd(
-        _ resolve: RCTPromiseResolveBlock,
-        rejecter reject: RCTPromiseRejectBlock
+            _ zoneId: NSString,
+            resolver resolve: RCTPromiseResolveBlock,
+            rejecter reject: RCTPromiseRejectBlock
     ) -> Void {
-        interstitial.show(from: UIApplication.shared.delegate?.window??.rootViewController)
+        let adMostInterstitial = adMostInterstitialDict[zoneId as String]
+
+        if adMostInterstitial != nil {
+            adMostInterstitial?.show(from: UIApplication.shared.delegate?.window??.rootViewController)
+            resolve(true)
+        } else {
+            reject("ADMOST_INSTANCE_NOT_FOUND", "Couldn't find any instance in this zone, call loadAd", nil);
+        }
     }
 
     @objc
     func isLoading(
-        _ resolve: RCTPromiseResolveBlock,
-        rejecter reject: RCTPromiseRejectBlock
+            _ zoneId: NSString,
+            resolver resolve: RCTPromiseResolveBlock,
+            rejecter reject: RCTPromiseRejectBlock
     ) -> Void {
-        resolve(interstitial.isLoading)
+        let adMostInterstitial = adMostInterstitialDict[zoneId as String]
+
+        if adMostInterstitial != nil {
+            resolve(adMostInterstitial?.isLoading)
+        } else {
+            reject("ADMOST_INSTANCE_NOT_FOUND", "Couldn't find any instance in this zone, call loadAd", nil);
+        }
     }
 
     @objc
     func isLoaded(
-        _ resolve: RCTPromiseResolveBlock,
-        rejecter reject: RCTPromiseRejectBlock
+            _ zoneId: NSString,
+            resolver resolve: RCTPromiseResolveBlock,
+            rejecter reject: RCTPromiseRejectBlock
     ) -> Void {
-        resolve(interstitial.isLoaded)
+        let adMostInterstitial = adMostInterstitialDict[zoneId as String]
+
+        if adMostInterstitial != nil {
+            resolve(adMostInterstitial?.isLoaded)
+        } else {
+            reject("ADMOST_INSTANCE_NOT_FOUND", "Couldn't find any instance in this zone, call loadAd", nil);
+        }
     }
 
     func didReceive(_ interstitial: AMRInterstitial!) {
-        AdMostModule.instance.sendEvent(eventName: "ADMOST_INTERSTITIAL_ON_READY", body: ["zoneId": zoneId])
+        AdMostModule.instance.sendEvent(
+                eventName: "ADMOST_INTERSTITIAL_ON_READY",
+                body: ["network": interstitial.networkName!, "ecpm": interstitial.ecpm!, "zoneId": interstitial.zoneId!]
+        )
     }
 
     func didFail(toReceive interstitial: AMRInterstitial!, error: AMRError!) {
         AdMostModule.instance.sendEvent(
-            eventName: "ADMOST_INTERSTITIAL_ON_FAIL",
-            body: ["zoneId": zoneId!, "errorCode": error.errorCode, "errorDescription": error.errorDescription!]
+                eventName: "ADMOST_INTERSTITIAL_ON_FAIL",
+                body: ["errorDescription": error.errorDescription!, "zoneId": interstitial.zoneId!]
         )
     }
 
     func didShow(_ interstitial: AMRInterstitial!) {
-        AdMostModule.instance.sendEvent(eventName: "ADMOST_INTERSTITIAL_ON_SHOWN", body: ["zoneId": zoneId])
+        AdMostModule.instance.sendEvent(
+                eventName: "ADMOST_INTERSTITIAL_ON_SHOWN",
+                body: ["network": interstitial.networkName!, "zoneId": interstitial.zoneId!]
+        )
     }
 
     func didClick(_ interstitial: AMRInterstitial!) {
-        AdMostModule.instance.sendEvent(eventName: "ADMOST_INTERSTITIAL_ON_CLICKED", body: ["zoneId": zoneId])
+        AdMostModule.instance.sendEvent(
+                eventName: "ADMOST_INTERSTITIAL_ON_CLICKED",
+                body: ["network": interstitial.networkName!, "zoneId": interstitial.zoneId!]
+        )
     }
 
     func didDismiss(_ interstitial: AMRInterstitial!) {
-        AdMostModule.instance.sendEvent(eventName: "ADMOST_INTERSTITIAL_ON_DISMISS", body: ["zoneId": zoneId])
+        AdMostModule.instance.sendEvent(
+                eventName: "ADMOST_INTERSTITIAL_ON_DISMISS",
+                body: ["zoneId": interstitial.zoneId!]
+        )
     }
 
     func didInterstitialStateChanged(_ interstitial: AMRInterstitial!, state: AMRAdState) {
-        AdMostModule.instance.sendEvent(eventName: "ADMOST_INTERSTITIAL_ON_STATUS_CHANGED", body: ["zoneId": zoneId!, "statusCode": state])
+        AdMostModule.instance.sendEvent(
+                eventName: "ADMOST_INTERSTITIAL_ON_STATUS_CHANGED",
+                body: ["zoneId": interstitial.zoneId!, "statusCode": state]
+        )
     }
-
 }
