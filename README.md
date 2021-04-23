@@ -88,13 +88,13 @@ export default class App extends React.Component {
 
 #### Android Custom Layout
 - Create android layout from android studio
-- [It will look like this](./assets/android-custom-layout.png)
+- [It should be like this](./assets/android-custom-layout.png)
 - Set layoutName prop to view
 
 #### IOS Custom Layout
 - `cp -r CustomXibs ${project_rootdir}/node_modules/@up-inside/react-native-admost/`
 - `pod install in ios folder`
-- [It will look like this](./assets/ios-custom-layout.png)
+- [It should be like this](./assets/ios-custom-layout.png)
 - Set layoutName prop to view
 
 #### Props
