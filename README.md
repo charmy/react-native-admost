@@ -6,10 +6,6 @@
 $ npm install @up-inside/react-native-admost --save
 ```
 
-### Custom layout
-
-- Document will be added
-
 ### Android
 - You should follow the "Edit Files" section on [AdMost](https://admost.github.io/amrandroid/#edit-files)
 - These dependencies already exist in gradle
@@ -19,7 +15,7 @@ $ npm install @up-inside/react-native-admost --save
   implementation 'com.google.android.gms:play-services-base:17.1.0'
 ```
 
-### iOS
+### IOS
 - You should follow the "Create your podfile and install" section on [AdMost](https://admost.github.io/amrios/#create-your-podfile-and-install)
 - These dependencies already exist in pod
 ```
@@ -89,6 +85,17 @@ export default class App extends React.Component {
   }
 }
 ```
+
+#### Android Custom Layout
+- Create android layout from android studio
+- [It will look like this](./assets/android-custom-layout.png)
+- Set layoutName prop to view
+
+#### IOS Custom Layout
+- `cp -r CustomXibs ${project_rootdir}/node_modules/@up-inside/react-native-admost/`
+- `pod install in ios folder`
+- [It will look like this](./assets/ios-custom-layout.png)
+- Set layoutName prop to view
 
 #### Props
 | Prop                 | Required | Type     | Default value | Description                                                              |
