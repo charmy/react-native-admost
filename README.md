@@ -11,7 +11,7 @@ $ npm install @up-inside/react-native-admost --save
 - These dependencies already exist in gradle
 ```
   implementation 'com.android.volley:volley:1.1.1'
-  implementation 'com.admost.sdk:amr:2.2.9'
+  implementation 'com.admost.sdk:amr:2.3.3'
   implementation 'com.google.android.gms:play-services-base:17.1.0'
 ```
 
