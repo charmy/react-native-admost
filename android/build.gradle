@@ -33,7 +33,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.admost.sdk:amr:2.8.1'
+    implementation 'com.admost.sdk:amr:2.8.5'
     implementation 'com.google.android.gms:play-services-base:17.1.0'
     // Ad Network Dependencies
     // <-- ADD HERE
