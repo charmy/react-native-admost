@@ -10,8 +10,8 @@ $ npm install @up-inside/react-native-admost --save
 - You should follow the "Edit Files" section on [AdMost](https://admost.github.io/amrandroid/#edit-files)
 - These dependencies already exist in gradle
 ```
-  implementation 'com.admost.sdk:amr:2.8.1'
-  implementation 'com.google.android.gms:play-services-base:17.1.0'
+  implementation 'com.admost.sdk:amr:2.8.5' 
+  implementation 'com.google.android.gms:play-services-base:17.1.0' 
 ```
 
 #### Update Project `build.grandle`
