@@ -37,16 +37,16 @@ interface InterstitialProps {
   loadAd: (zoneId: string) => void;
   destroyAd: (zoneId: string) => void;
   showAd: (zoneId: string, tag: string) => Promise<void>;
-  isLoading: (zoneId: string) => Promise<void>;
-  isLoaded: (zoneId: string) => Promise<void>;
+  isLoading: (zoneId: string) => Promise<boolean>;
+  isLoaded: (zoneId: string) => Promise<boolean>;
 }
 
 interface RewardedProps {
   loadAd: (zoneId: string) => void;
   destroyAd: (zoneId: string) => void;
   showAd: (zoneId: string, tag: string) => Promise<void>;
-  isLoading: (zoneId: string) => Promise<void>;
-  isLoaded: (zoneId: string) => Promise<void>;
+  isLoading: (zoneId: string) => Promise<boolean>;
+  isLoaded: (zoneId: string) => Promise<boolean>;
 }
 
 const AdMostEventEmitter = new NativeEventEmitter(NativeModules.AdMost);
