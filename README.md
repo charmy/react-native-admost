@@ -37,13 +37,14 @@ allprojects {
 
 ### AdMostAdView
 
-```javascript
-import React from "react";
-import { Button, View } from "react-native";
-import AdMost, { AdMostAdView, BannerAdEvents, AdMostEventEmitter } from "@up-inside/react-native-admost";
+```typescript jsx
+import React, { useEffect } from "react";
+import { View, StatusBar, SafeAreaView } from "react-native";
 
-export default class App extends React.Component {
-  componentDidMount() {
+import AdMost, { AdMostAdView } from "@charmy.tech/react-native-admost";
+
+export default function App() {
+  useEffect(() => {
     const appId = "<your-app-id>";
 
     AdMost.initAdMost({
@@ -54,47 +55,45 @@ export default class App extends React.Component {
       userChild: false,
       userId: undefined,
     });
+  }, []);
 
-    this.setListeners();
-    // this.admostAdViewRef.loadAd();
-  }
-
-  componentWillUnmount() {
-    this.clearListeners();
-  }
-
-  setListeners() {
-    this.adMostOnReadyEvent = AdMostEventEmitter.addListener(BannerAdEvents.ON_READY, (e) => {
-      console.log("ON_READY", e);
-    });
-
-    this.adMostOnFailEvent = AdMostEventEmitter.addListener(BannerAdEvents.ON_FAIL, (e) => {
-      console.log("ON_FAIL", e);
-    });
-
-    this.adMostOnClickEvent = AdMostEventEmitter.addListener(BannerAdEvents.ON_CLICK, (e) => {
-      console.log("ON_CLICK", e);
-    });
-  }
-
-  clearListeners() {
-    this.adMostOnReadyEvent.remove();
-    this.adMostOnFailEvent.remove();
-    this.adMostOnClickEvent.remove();
-  }
-
-  render() {
-    return (
-      <View style={{ flex: 1 }}>
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={{ flex: 1, justifyContent: "center" }}>
+        <StatusBar barStyle="dark-content" backgroundColor="#ffffff" />
         <AdMostAdView
-          ref={(ref) => (this.admostAdViewRef = ref)}
+          zoneId="c4a15983-d6fe-49ec-8e8b-844663190559"
+          tag="Ragib"
+          style={{ width: "100%", height: 50 }}
+          onReady={({ nativeEvent }) => {
+            console.log("ON_READY", nativeEvent);
+          }}
+          onFail={({ nativeEvent }) => {
+            console.log("ON_FAIL", nativeEvent);
+          }}
+          onClick={({ nativeEvent }) => {
+            console.log("ON_CLICK", nativeEvent);
+          }}
+        />
+
+        <AdMostAdView
+          zoneId="<admost-zone-id>"
           style={{ width: "100%", height: 250 }}
-          zoneId={adMostZoneId}
+          onReady={({ nativeEvent }) => {
+            console.log("ON_READY", nativeEvent);
+          }}
+          onFail={({ nativeEvent }) => {
+            console.log("ON_FAIL", nativeEvent);
+          }}
+          onClick={({ nativeEvent }) => {
+            console.log("ON_CLICK", nativeEvent);
+          }}
         />
       </View>
-    );
-  }
+    </SafeAreaView>
+  );
 }
+
 ```
 
 #### Android Custom Layout
@@ -122,13 +121,14 @@ export default class App extends React.Component {
 | loadAd           |                    | void    | Load ad manually                             |
 
 ### AdMostInterstitial
-```javascript
-import React from "react";
-import { Button, View } from "react-native";
-import AdMost, { AdMostEventEmitter, AdMostInterstitial, InterstitialAdEvents } from "@up-inside/react-native-admost";
+```typescript jsx
+import React, { useEffect } from "react";
+import { View, StatusBar, Button, SafeAreaView } from "react-native";
 
-export default class SplashScreen extends React.Component {
-  componentDidMount() {
+import AdMost, { AdMostInterstitial } from "@charmy.tech/react-native-admost";
+
+export default function App() {
+  useEffect(() => {
     const appId = "<your-app-id>";
 
     AdMost.initAdMost({
@@ -139,61 +139,57 @@ export default class SplashScreen extends React.Component {
       userChild: false,
       userId: undefined,
     });
+  }, []);
 
-    this.setListeners();
-  }
-
-  componentWillUnmount() {
-    this.clearListeners();
-  }
-
-  setListeners() {
-    this.adMostOnReadyEvent = AdMostEventEmitter.addListener(InterstitialAdEvents.ON_READY, (e) => {
+  // Interstitial events
+  useEffect(() => {
+    const adMostOnReadyEvent = AdMost.addInterstitialListener.onReady((e) => {
       console.log("ON_READY", e);
-      AdMostInterstitial.showAd();
+      AdMostInterstitial.showAd(e.zoneId, "TEST");
     });
 
-    this.adMostOnFailEvent = AdMostEventEmitter.addListener(InterstitialAdEvents.ON_FAIL, (e) => {
+    const adMostOnFailEvent = AdMost.addInterstitialListener.onFail((e) => {
       console.log("ON_FAIL", e);
     });
 
-    this.adMostOnShownEvent = AdMostEventEmitter.addListener(InterstitialAdEvents.ON_SHOWN, (e) => {
-      console.log("ON_SHOWN", e);
-    });
-
-    this.adMostOnClickedEvent = AdMostEventEmitter.addListener(InterstitialAdEvents.ON_CLICKED, (e) => {
-      console.log("ON_CLICKED", e);
-    });
-
-    this.adMostOnDismissEvent = AdMostEventEmitter.addListener(InterstitialAdEvents.ON_DISMISS, (e) => {
+    const adMostOnDismissEvent = AdMost.addInterstitialListener.onDismiss((e) => {
       console.log("ON_DISMISS", e);
     });
 
-    this.adMostOnStatusChangedEvent = AdMostEventEmitter.addListener(InterstitialAdEvents.ON_STATUS_CHANGED, (e) => {
+    const adMostOnShownEvent = AdMost.addInterstitialListener.onShown((e) => {
+      console.log("ON_SHOWN", e);
+    });
+
+    const adMostOnClickedEvent = AdMost.addInterstitialListener.onClicked((e) => {
+      console.log("ON_CLICKED", e);
+    });
+
+    const adMostOnStatusChangedEvent = AdMost.addInterstitialListener.onStatusChanged((e) => {
       console.log("ON_STATUS_CHANGED", e);
     });
-  }
 
-  clearListeners() {
-    this.adMostOnReadyEvent.remove();
-    this.adMostOnFailEvent.remove();
-    this.adMostOnShownEvent.remove();
-    this.adMostOnClickedEvent.remove();
-    this.adMostOnDismissEvent.remove();
-    this.adMostOnStatusChangedEvent.remove();
-  }
+    return () => {
+      adMostOnReadyEvent.remove();
+      adMostOnFailEvent.remove();
+      adMostOnDismissEvent.remove();
+      adMostOnShownEvent.remove();
+      adMostOnClickedEvent.remove();
+      adMostOnStatusChangedEvent.remove();
+    };
+  });
 
-  render() {
-    return (
-      <View style={{ flex:1 }}>
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={{ flex: 1, justifyContent: "center" }}>
+        <StatusBar barStyle="dark-content" backgroundColor="#ffffff" />
         <Button
-          onPress={() => AdMostInterstitial.loadAd("zone-id")}
-          title="Load Ad"
+          onPress={() => AdMostInterstitial.loadAd("<admost-zone-id>")}
+          title="Load Interstitial Ad"
           color="red"
         />
       </View>
-    );
-  }
+    </SafeAreaView>
+  );
 }
 ```
 
@@ -218,13 +214,14 @@ export default class SplashScreen extends React.Component {
 | ON_STATUS_CHANGED    | statusCode, zoneId                                |
 
 ### AdMostRewarded
-```javascript
-import React from "react";
-import { Button, View } from "react-native";
-import AdMost, { AdMostEventEmitter, AdMostRewarded, RewardedAdEvents } from "@up-inside/react-native-admost";
+```typescript jsx
+import React, { useEffect } from "react";
+import { View, StatusBar, Button, SafeAreaView } from "react-native";
 
-export default class SplashScreen extends React.Component {
-  componentDidMount() {
+import AdMost, { AdMostRewarded } from "@charmy.tech/react-native-admost";
+
+export default function App() {
+  useEffect(() => {
     const appId = "<your-app-id>";
 
     AdMost.initAdMost({
@@ -235,66 +232,62 @@ export default class SplashScreen extends React.Component {
       userChild: false,
       userId: undefined,
     });
+  }, []);
 
-    this.setListeners();
-  }
-
-  componentWillUnmount() {
-    this.clearListeners();
-  }
-
-  setListeners() {
-    this.adMostOnReadyEvent = AdMostEventEmitter.addListener(RewardedAdEvents.ON_READY, (e) => {
+  // Rewarded events
+  useEffect(() => {
+    const adMostOnReadyEvent = AdMost.addRewardedListener.onReady((e) => {
       console.log("ON_READY", e);
-      AdMostRewarded.showAd();
+      AdMostRewarded.showAd(e.zoneId, "TEST");
     });
 
-    this.adMostOnFailEvent = AdMostEventEmitter.addListener(RewardedAdEvents.ON_FAIL, (e) => {
+    const adMostOnFailEvent = AdMost.addRewardedListener.onFail((e) => {
       console.log("ON_FAIL", e);
     });
 
-    this.adMostOnShownEvent = AdMostEventEmitter.addListener(RewardedAdEvents.ON_SHOWN, (e) => {
-      console.log("ON_SHOWN", e);
-    });
-
-    this.adMostOnClickedEvent = AdMostEventEmitter.addListener(RewardedAdEvents.ON_CLICKED, (e) => {
-      console.log("ON_CLICKED", e);
-    });
-
-    this.adMostOnCompleteEvent = AdMostEventEmitter.addListener(RewardedAdEvents.ON_COMPLETE, (e) => {
-      console.log("ON_COMPLETE", e);
-    });
-
-    this.adMostOnDismissEvent = AdMostEventEmitter.addListener(RewardedAdEvents.ON_DISMISS, (e) => {
+    const adMostOnDismissEvent = AdMost.addRewardedListener.onDismiss((e) => {
       console.log("ON_DISMISS", e);
     });
 
-    this.adMostOnStatusChangedEvent = AdMostEventEmitter.addListener(RewardedAdEvents.ON_STATUS_CHANGED, (e) => {
+    const adMostOnCompleteEvent = AdMost.addRewardedListener.onComplete((e) => {
+      console.log("ON_COMPLETE", e);
+    });
+
+    const adMostOnShownEvent = AdMost.addRewardedListener.onShown((e) => {
+      console.log("ON_SHOWN", e);
+    });
+
+    const adMostOnClickedEvent = AdMost.addRewardedListener.onClicked((e) => {
+      console.log("ON_CLICKED", e);
+    });
+
+    const adMostOnStatusChangedEvent = AdMost.addRewardedListener.onStatusChanged((e) => {
       console.log("ON_STATUS_CHANGED", e);
     });
-  }
 
-  clearListeners() {
-    this.adMostOnReadyEvent.remove();
-    this.adMostOnFailEvent.remove();
-    this.adMostOnShownEvent.remove();
-    this.adMostOnClickedEvent.remove();
-    this.adMostOnCompleteEvent.remove();
-    this.adMostOnDismissEvent.remove();
-    this.adMostOnStatusChangedEvent.remove();
-  }
+    return () => {
+      adMostOnReadyEvent.remove();
+      adMostOnFailEvent.remove();
+      adMostOnDismissEvent.remove();
+      adMostOnCompleteEvent.remove();
+      adMostOnShownEvent.remove();
+      adMostOnClickedEvent.remove();
+      adMostOnStatusChangedEvent.remove();
+    };
+  });
 
-  render() {
-    return (
-      <View style={{ flex: 1 }}>
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={{ flex: 1, justifyContent: "center" }}>
+        <StatusBar barStyle="dark-content" backgroundColor="#ffffff" />
         <Button
-          onPress={() => AdMostRewarded.loadAd("<zone-id>")}
-          title="Load Ad"
+          onPress={() => AdMostRewarded.loadAd("<admost-zone-id>")}
+          title="Load Rewarded Ad"
           color="red"
         />
       </View>
-    );
-  }
+    </SafeAreaView>
+  );
 }
 ```
 
