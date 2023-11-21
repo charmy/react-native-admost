@@ -1,5 +1,5 @@
 {
-  "name": "react-native-admost",
+  "name": "@charmy.tech/react-native-admost",
   "version": "0.1.0",
   "description": "AdMost react-native implementation",
   "main": "lib/commonjs/index",
