@@ -14,9 +14,9 @@ interface RCTAdMostAdViewProps {
   tag?: string;
   style: ViewStyle;
 
-  onReady: (e: NativeSyntheticEvent<{ network: string; ecpm: number; zoneId: string }>) => void;
-  onFail: (e: NativeSyntheticEvent<{ errorCode: number; zoneId: string }>) => void;
-  onClick: (e: NativeSyntheticEvent<{ network: string; zoneId: string }>) => void;
+  onReady?: (e: NativeSyntheticEvent<{ network: string; ecpm: number; zoneId: string }>) => void;
+  onFail?: (e: NativeSyntheticEvent<{ errorCode: number; zoneId: string }>) => void;
+  onClick?: (e: NativeSyntheticEvent<{ network: string; zoneId: string }>) => void;
 }
 
 interface AdMostAdViewProps extends RCTAdMostAdViewProps {
