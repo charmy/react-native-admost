@@ -18,8 +18,6 @@ import admost.sdk.base.AdMostConfiguration;
 import admost.sdk.listener.AdMostInitListener;
 
 public class AdMostModule extends ReactContextBaseJavaModule {
-
-  private static final String TAG = AdMostModule.class.getSimpleName();
   private static ReactApplicationContext reactContext;
 
   public AdMostModule(ReactApplicationContext reactContext) {
@@ -41,7 +39,7 @@ public class AdMostModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void initAdMost(final ReadableMap readableMap, final Promise promise) {
-    AdMostConfiguration adMostConfiguration = getAdmostConfiguration(readableMap);
+    AdMostConfiguration adMostConfiguration = getAdMostConfiguration(readableMap);
 
     AdMost.getInstance().init(adMostConfiguration, new AdMostInitListener() {
       @Override
@@ -56,7 +54,7 @@ public class AdMostModule extends ReactContextBaseJavaModule {
     });
   }
 
-  private AdMostConfiguration getAdmostConfiguration(ReadableMap readableMap) {
+  private AdMostConfiguration getAdMostConfiguration(ReadableMap readableMap) {
     Activity currentActivity = getCurrentActivity();
 
     if (!readableMap.hasKey("appId")) {
@@ -87,5 +85,15 @@ public class AdMostModule extends ReactContextBaseJavaModule {
     }
 
     return adMostConfigBuilder.build();
+  }
+
+  @ReactMethod
+  public void addListener(String e) {
+    // for event emitter warnings
+  }
+
+  @ReactMethod
+  public void removeListeners(Integer c) {
+    // for event emitter warnings
   }
 }

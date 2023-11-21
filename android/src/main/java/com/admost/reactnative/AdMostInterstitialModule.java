@@ -57,11 +57,11 @@ public class AdMostInterstitialModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void showAd(final String zoneId, final Promise promise) {
+  public void showAd(final String zoneId, final String tag, final Promise promise) {
     AdMostInterstitial adMostInterstitial = adMostInterstitialMap.get(zoneId);
 
     if (adMostInterstitial != null) {
-      adMostInterstitial.show();
+      adMostInterstitial.show(tag);
       promise.resolve(true);
     } else {
       promise.reject(Constants.ADMOST_INSTANCE_NOT_FOUND, "Couldn't find any instance in this zone, call loadAd");

@@ -15,8 +15,6 @@ import admost.sdk.AdMostInterstitial;
 import admost.sdk.listener.AdMostAdListener;
 
 public class AdMostRewardedModule extends ReactContextBaseJavaModule {
-
-  private static final String TAG = AdMostRewardedModule.class.getSimpleName();
   private final ReactApplicationContext reactContext;
   private final HashMap<String, AdMostInterstitial> adMostRewardedMap; // zoneId -> AdMostRewarded
 
@@ -57,11 +55,11 @@ public class AdMostRewardedModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void showAd(final String zoneId, final Promise promise) {
+  public void showAd(final String zoneId, final String tag, final Promise promise) {
     AdMostInterstitial adMostRewarded = adMostRewardedMap.get(zoneId);
 
     if (adMostRewarded != null) {
-      adMostRewarded.show();
+      adMostRewarded.show(tag);
       promise.resolve(true);
     } else {
       promise.reject(Constants.ADMOST_INSTANCE_NOT_FOUND, "Couldn't find any instance in this zone, call loadAd");
