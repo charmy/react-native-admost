@@ -28,15 +28,15 @@ export default function App() {
       console.log("ON_FAIL", e);
     });
 
-    const adMostOnShownEvent = AdMost.addInterstitialListener.onDismiss((e) => {
+    const adMostOnDismissEvent = AdMost.addInterstitialListener.onDismiss((e) => {
       console.log("ON_DISMISS", e);
     });
 
-    const adMostOnClickedEvent = AdMost.addInterstitialListener.onShown((e) => {
+    const adMostOnShownEvent = AdMost.addInterstitialListener.onShown((e) => {
       console.log("ON_SHOWN", e);
     });
 
-    const adMostOnDismissEvent = AdMost.addInterstitialListener.onClicked((e) => {
+    const adMostOnClickedEvent = AdMost.addInterstitialListener.onClicked((e) => {
       console.log("ON_CLICKED", e);
     });
 
@@ -47,9 +47,9 @@ export default function App() {
     return () => {
       adMostOnReadyEvent.remove();
       adMostOnFailEvent.remove();
+      adMostOnDismissEvent.remove();
       adMostOnShownEvent.remove();
       adMostOnClickedEvent.remove();
-      adMostOnDismissEvent.remove();
       adMostOnStatusChangedEvent.remove();
     };
   });
@@ -65,7 +65,7 @@ export default function App() {
       console.log("ON_FAIL", e);
     });
 
-    const adMostOnShownEvent = AdMost.addRewardedListener.onDismiss((e) => {
+    const adMostOnDismissEvent = AdMost.addRewardedListener.onDismiss((e) => {
       console.log("ON_DISMISS", e);
     });
 
@@ -73,11 +73,11 @@ export default function App() {
       console.log("ON_COMPLETE", e);
     });
 
-    const adMostOnClickedEvent = AdMost.addRewardedListener.onShown((e) => {
+    const adMostOnShownEvent = AdMost.addRewardedListener.onShown((e) => {
       console.log("ON_SHOWN", e);
     });
 
-    const adMostOnDismissEvent = AdMost.addRewardedListener.onClicked((e) => {
+    const adMostOnClickedEvent = AdMost.addRewardedListener.onClicked((e) => {
       console.log("ON_CLICKED", e);
     });
 
@@ -88,10 +88,10 @@ export default function App() {
     return () => {
       adMostOnReadyEvent.remove();
       adMostOnFailEvent.remove();
+      adMostOnDismissEvent.remove();
       adMostOnCompleteEvent.remove();
       adMostOnShownEvent.remove();
       adMostOnClickedEvent.remove();
-      adMostOnDismissEvent.remove();
       adMostOnStatusChangedEvent.remove();
     };
   });
