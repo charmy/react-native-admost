@@ -3,14 +3,14 @@
 ## Getting started
 
 ```shell script
-$ npm install @up-inside/react-native-admost --save
+$ npm install @charmy.tech/react-native-admost --save
 ```
 
 ### Android
 - You should follow the "Edit Files" section on [AdMost](https://admost.github.io/amrandroid/#edit-files)
 - These dependencies already exist in gradle
 ```
-  implementation 'com.admost.sdk:amr:2.8.5' 
+  implementation 'com.admost.sdk:amr:+' 
   implementation 'com.google.android.gms:play-services-base:17.1.0' 
 ```
 
@@ -20,7 +20,7 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        maven { url 'https://mvn-repo.admost.com/artifactory/amr' } // <- ADD THIS
+        maven { url 'https://mvn-repo.admost.com/artifactory/amr-2' }
     }
 }
 ```

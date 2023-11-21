@@ -16,7 +16,7 @@ jobs:
       - name: Build
         run: |
           yarn install
-          tsc
+          yarn run prepare
       - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
