@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { memo, useCallback, useEffect, useRef } from "react";
 import {
   UIManager,
   Platform,
@@ -19,15 +19,14 @@ interface RCTAdMostAdViewProps {
   onClick?: (e: NativeSyntheticEvent<{ network: string; zoneId: string }>) => void;
 }
 
-interface AdMostAdViewProps extends RCTAdMostAdViewProps {
+export interface AdMostAdViewProps extends RCTAdMostAdViewProps {
   autoLoadDelayMs?: number;
-  autoLoad?: boolean;
 }
 
 const RCTComponentName = "RCTAdMostAdView";
 const RCTAdMostAdView = requireNativeComponent<RCTAdMostAdViewProps>(RCTComponentName);
 
-export default function AdMostAdViewProps({
+function AdMostAdView({
   zoneId,
   layoutName = "DEFAULT",
   tag = "",
@@ -37,15 +36,11 @@ export default function AdMostAdViewProps({
   onClick,
 
   autoLoadDelayMs = 100,
-  autoLoad = true,
 }: AdMostAdViewProps) {
   const rctAdMostAdViewRef = useRef<any>(null);
 
   useEffect(() => {
-    let loadTimeout: any;
-    if (autoLoad) {
-      loadTimeout = setTimeout(() => loadAd(), Math.max(100, autoLoadDelayMs));
-    }
+    const loadTimeout = setTimeout(() => loadAd(), Math.max(100, autoLoadDelayMs));
 
     return () => {
       clearTimeout(loadTimeout);
@@ -78,3 +73,5 @@ export default function AdMostAdViewProps({
     />
   );
 }
+
+export default memo(AdMostAdView);

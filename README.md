@@ -108,17 +108,16 @@ export default function App() {
 - Set layoutName prop to view
 
 #### Props
-| Prop                 | Required | Type     | Default value | Description                                                              |
-|----------------------|----------|----------|---------------|--------------------------------------------------------------------------|
-| zoneId               | true     | string   |               | AdMost zoneId                                                            |
-| layoutName           | false    | string   | DEFAULT       | Custom layout name(layout_admost_native_250, CustomNative200x200)        |                                                             |
-| autoLoadDelayMs      | false    | number   | 100           | Auto load delay (min 100 ms)                                             | 
-| autoLoad             | false    | bool     | true          | Load ad when AdmostAdView is mount                                       | 
-
-#### Methods
-| Name             | Params             | Return  | Description                                 |
-|------------------|--------------------|---------|----------------------------------------------|
-| loadAd           |                    | void    | Load ad manually                             |
+| Prop            | Required | Type      | Default value | Description                                                                                        |
+|-----------------|----------|-----------|---------------|----------------------------------------------------------------------------------------------------|
+| zoneId          | true     | string    |               | AdMost zoneId                                                                                      |
+| layoutName      | false    | string    | DEFAULT       | Custom layout name(layout_admost_native_250, CustomNative200x200)                                  |                                                             |
+| tag             | false    | string    |               | Tags will let you monitor the performance of the ads across different dimensions for the same zone |                                                             |
+| style           | true     | ViewStyle |               | View style ({ width: "100%", height: 50 })                                                         | 
+| autoLoadDelayMs | false    | number    | 100           | Auto load delay (min 100 ms)                                                                       | 
+| onReady         | false    | func      |               | on ready callback event                                                                            | 
+| onFail          | false    | func      |               | on fail callback event                                                                             | 
+| onClick         | false    | func      |               | on click callback event                                                                            |
 
 ### AdMostInterstitial
 ```typescript jsx
@@ -195,23 +194,23 @@ export default function App() {
 
 
 #### Methods
-| Name             | Params             | Return  | Description                                                           |
-|------------------|--------------------|---------|----------------------------------------|
-| loadAd           | zoneId             | void    | Load ad                                |
-| destroyAd        | zoneId             | void    | Destroy Ad                             |
-| showAd           | zoneId             | promise | Show when ad is ready                  |
-| isLoading        | zoneId             | promise | Ad is loading                          |
-| isLoaded         | zoneId             | promise | Ad is loaded                           |
+| Name             | Params                         | Return           | Description           |
+|------------------|--------------------------------|------------------|-----------------------|
+| loadAd           | (zoneId: string)               | void             | Load ad               |
+| destroyAd        | (zoneId: string)               | void             | Destroy Ad            |
+| showAd           | (zoneId: string, tag: string)  | Promise<boolean> | Show when ad is ready |
+| isLoading        | (zoneId: string)               | Promise<boolean> | Ad is loading         |
+| isLoaded         | (zoneId: string)               | Promise<boolean> | Ad is loaded          |
 
 #### Events
-| Name                 | Params                                            |
-|----------------------|---------------------------------------------------|
-| ON_READY             | network, ecpm, zoneId                             |
-| ON_FAIL              | errorCode(Android), errorDescription(IOS), zoneId |
-| ON_DISMISS           | message(Android), zoneId                          |
-| ON_SHOWN             | network, zoneId                                   |
-| ON_CLICKED           | network, zoneId                                   |
-| ON_STATUS_CHANGED    | statusCode, zoneId                                |
+| Name                 | Params                                                                |
+|----------------------|-----------------------------------------------------------------------|
+| ON_READY             | { network: string; ecpm: number; zoneId: string }                     |
+| ON_FAIL              | { errorCode: number; errorDescription?: string(iOS); zoneId: string } |
+| ON_DISMISS           | { message?: string(Android); zoneId: string }                         |
+| ON_SHOWN             | { network: string; zoneId: string }                                   |
+| ON_CLICKED           | { network: string; zoneId: string }                                   |
+| ON_STATUS_CHANGED    | { network: string; zoneId: string }                                   |
 
 ### AdMostRewarded
 ```typescript jsx
@@ -292,21 +291,21 @@ export default function App() {
 ```
 
 #### Methods
-| Name             | Params             | Return  | Description                                                           |
-|------------------|--------------------|---------|----------------------------------------|
-| loadAd           | zoneId             | void    | Load ad                                |
-| destroyAd        | zoneId             | void    | Destroy Ad                             |
-| showAd           | zoneId             | promise | Show when ad is ready                  |
-| isLoading        | zoneId             | promise | Ad is loading                          |
-| isLoaded         | zoneId             | promise | Ad is loaded                           |
+| Name             | Params                         | Return           | Description           |
+|------------------|--------------------------------|------------------|-----------------------|
+| loadAd           | (zoneId: string)               | void             | Load ad               |
+| destroyAd        | (zoneId: string)               | void             | Destroy Ad            |
+| showAd           | (zoneId: string, tag: string)  | Promise<boolean> | Show when ad is ready |
+| isLoading        | (zoneId: string)               | Promise<boolean> | Ad is loading         |
+| isLoaded         | (zoneId: string)               | Promise<boolean> | Ad is loaded          |
 
 #### Events
-| Name                 | Params                                            |
-|----------------------|---------------------------------------------------|
-| ON_READY             | network, ecpm, zoneId                             |
-| ON_FAIL              | errorCode(Android), errorDescription(IOS), zoneId |
-| ON_DISMISS           | message(Android), zoneId                          |
-| ON_COMPLETE          | network, zoneId                                   |
-| ON_SHOWN             | network, zoneId                                   |
-| ON_CLICKED           | network, zoneId                                   |
-| ON_STATUS_CHANGED    | statusCode, zoneId                                |
+| Name                 | Params                                                                |
+|----------------------|-----------------------------------------------------------------------|
+| ON_READY             | { network: string; ecpm: number; zoneId: string }                     |
+| ON_FAIL              | { errorCode: number; errorDescription?: string(iOS); zoneId: string } |
+| ON_DISMISS           | { message?: string(Android); zoneId: string }                         |
+| ON_COMPLETE          | { network: string; zoneId: string }                                   |
+| ON_SHOWN             | { network: string; zoneId: string }                                   |
+| ON_CLICKED           | { network: string; zoneId: string }                                   |
+| ON_STATUS_CHANGED    | { network: string; zoneId: string }                                   |
