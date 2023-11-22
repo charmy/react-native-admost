@@ -12,6 +12,7 @@ RCT_EXTERN_METHOD(destroyAd:
                   rejecter:(RCTPromiseRejectBlock)reject)
 RCT_EXTERN_METHOD(showAd:
                   (nonnull NSString) zoneId
+                  tag:(nonnull NSString) adTag
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 RCT_EXTERN_METHOD(isLoading:

@@ -48,13 +48,14 @@ class AdMostInterstitialModule: NSObject, AMRInterstitialDelegate {
     @objc
     func showAd(
             _ zoneId: NSString,
+            tag adTag: NSString,
             resolver resolve: RCTPromiseResolveBlock,
             rejecter reject: RCTPromiseRejectBlock
     ) -> Void {
         let adMostInterstitial = adMostInterstitialDict[zoneId as String]
 
         if adMostInterstitial != nil {
-            adMostInterstitial?.show(from: UIApplication.shared.delegate?.window??.rootViewController)
+            adMostInterstitial?.show(from: UIApplication.shared.delegate?.window??.rootViewController, withTag: adTag as String)
             resolve(true)
         } else {
             reject("ADMOST_INSTANCE_NOT_FOUND", "Couldn't find any instance in this zone, call loadAd", nil);
@@ -101,7 +102,14 @@ class AdMostInterstitialModule: NSObject, AMRInterstitialDelegate {
     func didFail(toReceive interstitial: AMRInterstitial!, error: AMRError!) {
         AdMostModule.instance.sendEvent(
                 eventName: "ADMOST_INTERSTITIAL_ON_FAIL",
-                body: ["errorDescription": error.errorDescription!, "zoneId": interstitial.zoneId!]
+                body: ["errorDescription": error.errorDescription!, "errorCode": error.errorCode, "zoneId": interstitial.zoneId!]
+        )
+    }
+    
+    func didDismiss(_ interstitial: AMRInterstitial!) {
+        AdMostModule.instance.sendEvent(
+                eventName: "ADMOST_INTERSTITIAL_ON_DISMISS",
+                body: ["zoneId": interstitial.zoneId!]
         )
     }
 
@@ -116,13 +124,6 @@ class AdMostInterstitialModule: NSObject, AMRInterstitialDelegate {
         AdMostModule.instance.sendEvent(
                 eventName: "ADMOST_INTERSTITIAL_ON_CLICKED",
                 body: ["network": interstitial.networkName!, "zoneId": interstitial.zoneId!]
-        )
-    }
-
-    func didDismiss(_ interstitial: AMRInterstitial!) {
-        AdMostModule.instance.sendEvent(
-                eventName: "ADMOST_INTERSTITIAL_ON_DISMISS",
-                body: ["zoneId": interstitial.zoneId!]
         )
     }
 

@@ -5,9 +5,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import androidx.annotation.Nullable;
+
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.uimanager.events.RCTEventEmitter;
 
 import admost.sdk.AdMostView;
 import admost.sdk.AdMostViewBinder;
@@ -15,12 +18,11 @@ import admost.sdk.listener.AdMostViewListener;
 
 @SuppressLint("ViewConstructor")
 public class AdMostAdView extends FrameLayout implements AdMostViewListener {
-
-  public static final String TAG = AdMostAdView.class.getSimpleName();
   private final ReactContext context;
   private View rootView;
   private ViewGroup adViewGroup;
   private String zoneId;
+  private String tag = "";
   private String layoutName = "DEFAULT";
   private AdMostView adMostView;
 
@@ -39,7 +41,7 @@ public class AdMostAdView extends FrameLayout implements AdMostViewListener {
     if (adMostView == null) {
       this.adMostView = new AdMostView(context.getCurrentActivity(), this.zoneId, 0, this, getAdMostViewBinder());
     }
-    adMostView.load();
+    adMostView.load(this.tag);
   }
 
   public void destroyAd() {
@@ -52,9 +54,10 @@ public class AdMostAdView extends FrameLayout implements AdMostViewListener {
   public void onReady(String network, int ecpm, View adView) {
     WritableMap params = Arguments.createMap();
     params.putString("network", network);
+    params.putInt("ecpm", ecpm);
     params.putString("zoneId", zoneId);
 
-    AdMostModule.sendEvent("ADMOST_BANNER_ON_READY", params);
+    sendEvent("onReady", params);
 
     adViewGroup.removeAllViews();
     adViewGroup.addView(adView);
@@ -67,7 +70,7 @@ public class AdMostAdView extends FrameLayout implements AdMostViewListener {
     params.putInt("errorCode", errorCode);
     params.putString("zoneId", zoneId);
 
-    AdMostModule.sendEvent("ADMOST_BANNER_ON_FAIL", params);
+    sendEvent("onFail", params);
   }
 
   @Override
@@ -76,14 +79,14 @@ public class AdMostAdView extends FrameLayout implements AdMostViewListener {
     params.putString("network", network);
     params.putString("zoneId", zoneId);
 
-    AdMostModule.sendEvent("ADMOST_BANNER_ON_CLICK", params);
+    sendEvent("onClick", params);
   }
 
   //bugs: https://github.com/facebook/react-native/issues/17968
   private void refreshViewChildrenLayout(View view) {
     view.measure(
-        View.MeasureSpec.makeMeasureSpec(view.getMeasuredWidth(), View.MeasureSpec.EXACTLY),
-        View.MeasureSpec.makeMeasureSpec(view.getMeasuredHeight(), View.MeasureSpec.EXACTLY)
+      View.MeasureSpec.makeMeasureSpec(view.getMeasuredWidth(), View.MeasureSpec.EXACTLY),
+      View.MeasureSpec.makeMeasureSpec(view.getMeasuredHeight(), View.MeasureSpec.EXACTLY)
     );
     view.layout(view.getLeft(), view.getTop(), view.getRight(), view.getBottom());
   }
@@ -99,16 +102,16 @@ public class AdMostAdView extends FrameLayout implements AdMostViewListener {
     }
 
     return new AdMostViewBinder.Builder(layoutId)
-        .iconImageId(R.id.ad_app_icon)
-        .titleId(R.id.ad_headline)
-        .callToActionId(R.id.ad_call_to_action)
-        .textId(R.id.ad_body)
-        .attributionId(R.id.ad_attribution)
-        .mainImageId(R.id.ad_image)
-        .backImageId(R.id.ad_back)
-        .privacyIconId(R.id.ad_privacy_icon)
-        .isRoundedMode(true)
-        .build();
+      .iconImageId(R.id.ad_app_icon)
+      .titleId(R.id.ad_headline)
+      .callToActionId(R.id.ad_call_to_action)
+      .textId(R.id.ad_body)
+      .attributionId(R.id.ad_attribution)
+      .mainImageId(R.id.ad_image)
+      .backImageId(R.id.ad_back)
+      .privacyIconId(R.id.ad_privacy_icon)
+      .isRoundedMode(true)
+      .build();
   }
 
   private int getLayoutIdWithName(String layoutName) {
@@ -119,7 +122,15 @@ public class AdMostAdView extends FrameLayout implements AdMostViewListener {
     this.zoneId = zoneId;
   }
 
+  public void setTag(String tag) {
+    this.tag = tag;
+  }
+
   public void setLayoutName(String layoutName) {
     this.layoutName = layoutName;
+  }
+
+  public void sendEvent(String eventName, @Nullable WritableMap params) {
+    this.context.getJSModule(RCTEventEmitter.class).receiveEvent(getId(), eventName, params);
   }
 }

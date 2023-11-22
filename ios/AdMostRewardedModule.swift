@@ -48,13 +48,14 @@ class AdMostRewardedModule: NSObject, AMRRewardedVideoDelegate {
     @objc
     func showAd(
             _ zoneId: NSString,
+            tag adTag: NSString,
             resolver resolve: RCTPromiseResolveBlock,
             rejecter reject: RCTPromiseRejectBlock
     ) -> Void {
         let adMostRewarded = adMostRewardedDict[zoneId as String]
 
         if adMostRewarded != nil {
-            adMostRewarded?.show(from: UIApplication.shared.delegate?.window??.rootViewController)
+            adMostRewarded?.show(from: UIApplication.shared.delegate?.window??.rootViewController, withTag: adTag as String)
             resolve(true)
         } else {
             reject("ADMOST_INSTANCE_NOT_FOUND", "Couldn't find any instance in this zone, call loadAd", nil);
@@ -101,7 +102,21 @@ class AdMostRewardedModule: NSObject, AMRRewardedVideoDelegate {
     func didFail(toReceive rewardedVideo: AMRRewardedVideo!, error: AMRError!) {
         AdMostModule.instance.sendEvent(
                 eventName: "ADMOST_REWARDED_ON_FAIL",
-                body: ["errorDescription": error.errorDescription!, "zoneId": rewardedVideo.zoneId!]
+                body: ["errorDescription": error.errorDescription!, "errorCode": error.errorCode, "zoneId": rewardedVideo.zoneId!]
+        )
+    }
+    
+    func didDismiss(_ rewardedVideo: AMRRewardedVideo!) {
+        AdMostModule.instance.sendEvent(
+                eventName: "ADMOST_REWARDED_ON_DISMISS",
+                body: ["zoneId": rewardedVideo.zoneId!]
+        )
+    }
+    
+    func didComplete(_ rewardedVideo: AMRRewardedVideo!) {
+        AdMostModule.instance.sendEvent(
+                eventName: "ADMOST_REWARDED_ON_COMPLETE",
+                body: ["network": rewardedVideo.networkName!, "zoneId": rewardedVideo.zoneId!]
         )
     }
 
@@ -116,20 +131,6 @@ class AdMostRewardedModule: NSObject, AMRRewardedVideoDelegate {
         AdMostModule.instance.sendEvent(
                 eventName: "ADMOST_REWARDED_ON_CLICKED",
                 body: ["network": rewardedVideo.networkName!, "zoneId": rewardedVideo.zoneId!]
-        )
-    }
-
-    func didComplete(_ rewardedVideo: AMRRewardedVideo!) {
-        AdMostModule.instance.sendEvent(
-                eventName: "ADMOST_REWARDED_ON_COMPLETE",
-                body: ["network": rewardedVideo.networkName!, "zoneId": rewardedVideo.zoneId!]
-        )
-    }
-
-    func didDismiss(_ rewardedVideo: AMRRewardedVideo!) {
-        AdMostModule.instance.sendEvent(
-                eventName: "ADMOST_REWARDED_ON_DISMISS",
-                body: ["zoneId": rewardedVideo.zoneId!]
         )
     }
 

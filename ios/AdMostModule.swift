@@ -66,9 +66,6 @@ class AdMostModule: RCTEventEmitter {
 
     override func supportedEvents() -> [String]! {
         return [
-            "ADMOST_BANNER_ON_READY",
-            "ADMOST_BANNER_ON_FAIL",
-            "ADMOST_BANNER_ON_CLICK",
             "ADMOST_INTERSTITIAL_ON_READY",
             "ADMOST_INTERSTITIAL_ON_FAIL",
             "ADMOST_INTERSTITIAL_ON_DISMISS",

@@ -5,7 +5,12 @@ class AdMostAdView: UIView, AMRBannerDelegate {
 
     var mpuBanner: AMRBanner!
     var adZoneId: NSString!
+    var adTag: NSString!
     var adLayoutName: NSString!
+    
+    @objc var onReady: RCTDirectEventBlock?
+    @objc var onFail: RCTDirectEventBlock?
+    @objc var onClick: RCTDirectEventBlock?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,7 +31,8 @@ class AdMostAdView: UIView, AMRBannerDelegate {
                 mpuBanner.customeNativeXibName = adLayoutName as String?
             }
         }
-        mpuBanner.load()
+        
+        mpuBanner.load(withTag: adTag as String?)
     }
 
     func destroyAd() {
@@ -35,23 +41,33 @@ class AdMostAdView: UIView, AMRBannerDelegate {
 
     func didReceive(_ banner: AMRBanner!) {
         self.addSubview(banner.bannerView)
-        AdMostModule.instance.sendEvent(eventName: "ADMOST_BANNER_ON_READY", body: ["zoneId": adZoneId])
+        
+        if onReady != nil {
+            onReady!(["zoneId": adZoneId!, "ecpm": banner.ecpm!, "network": banner.networkName!])
+        }
     }
 
     func didFail(toReceive banner: AMRBanner!, error: AMRError!) {
-        AdMostModule.instance.sendEvent(
-            eventName: "ADMOST_BANNER_ON_FAIL",
-            body: ["zoneId": adZoneId!, "errorCode": error.errorCode, "errorDescription": error.errorDescription!]
-        )
+        if onFail != nil {
+            onFail!(["zoneId": adZoneId!, "errorCode": error.errorCode, "errorDescription": error.errorDescription!])
+        }
     }
 
     func didClick(_ banner: AMRBanner!) {
-        AdMostModule.instance.sendEvent(eventName: "ADMOST_BANNER_ON_CLICK", body: ["zoneId": adZoneId])
+        if onClick != nil {
+            onClick!(["zoneId": adZoneId!, "network": banner.networkName!])
+        }
     }
 
     @objc var zoneId: NSString = "" {
         didSet {
             adZoneId = zoneId;
+        }
+    }
+    
+    @objc var nsTag: NSString = "" {
+        didSet {
+            adTag = nsTag;
         }
     }
 
