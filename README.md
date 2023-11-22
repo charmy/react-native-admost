@@ -102,7 +102,7 @@ export default function App() {
 - Set layoutName prop to view
 
 #### IOS Custom Layout
-- `cp -r CustomXibs ${project_rootdir}/node_modules/@up-inside/react-native-admost/`
+- `cp -r CustomXibs ${project_rootdir}/node_modules/@charmy.tech/react-native-admost/`
 - `pod install in ios folder`
 - [It should be like this](./assets/ios-custom-layout.png)
 - Set layoutName prop to view
