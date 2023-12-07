@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { View, StatusBar, Button, SafeAreaView } from "react-native";
 
-import AdMost, { AdMostAdView, AdMostInterstitial, AdMostRewarded } from "react-native-admost";
+import AdMost, { AdMostAdView, AdMostInterstitial, AdMostRewarded } from "@charmy.tech/react-native-admost";
 
 export default function App() {
   useEffect(() => {
