@@ -13,7 +13,9 @@ export default function App() {
       subjectToGDPR: false,
       subjectToCCPA: false,
       userChild: false,
-      userId: undefined,
+    }).then(() => {
+      AdMost.setUserId("123123");
+      AdMost.setCanRequestAds(false);
     });
   }, []);
 

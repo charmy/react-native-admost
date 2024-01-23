@@ -53,8 +53,10 @@ export default function App() {
       subjectToGDPR: false,
       subjectToCCPA: false,
       userChild: false,
-      userId: undefined,
     });
+
+    AdMost.setUserId("123123");
+    AdMost.setCanRequestAds(false);
   }, []);
 
   return (
@@ -136,7 +138,6 @@ export default function App() {
       subjectToGDPR: false,
       subjectToCCPA: false,
       userChild: false,
-      userId: undefined,
     });
   }, []);
 
@@ -229,7 +230,6 @@ export default function App() {
       subjectToGDPR: false,
       subjectToCCPA: false,
       userChild: false,
-      userId: undefined,
     });
   }, []);
 

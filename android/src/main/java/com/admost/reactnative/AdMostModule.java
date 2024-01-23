@@ -54,6 +54,26 @@ public class AdMostModule extends ReactContextBaseJavaModule {
     });
   }
 
+  @ReactMethod
+  public void setUserId(final String userId) {
+    AdMost.getInstance().setUserId(userId);
+  }
+
+  @ReactMethod
+  public void setCanRequestAds(final Boolean canRequestsAds) {
+    AdMost.getInstance().setCanRequestAds(canRequestsAds);
+  }
+
+  @ReactMethod
+  public void addListener(String e) {
+    // for event emitter warnings
+  }
+
+  @ReactMethod
+  public void removeListeners(Integer c) {
+    // for event emitter warnings
+  }
+
   private AdMostConfiguration getAdMostConfiguration(ReadableMap readableMap) {
     Activity currentActivity = getCurrentActivity();
 
@@ -80,20 +100,6 @@ public class AdMostModule extends ReactContextBaseJavaModule {
       adMostConfigBuilder.setUserChild(readableMap.getBoolean("userChild"));
     }
 
-    if (readableMap.hasKey("userId")) {
-      AdMost.getInstance().setUserId(readableMap.getString("userId"));
-    }
-
     return adMostConfigBuilder.build();
-  }
-
-  @ReactMethod
-  public void addListener(String e) {
-    // for event emitter warnings
-  }
-
-  @ReactMethod
-  public void removeListeners(Integer c) {
-    // for event emitter warnings
   }
 }

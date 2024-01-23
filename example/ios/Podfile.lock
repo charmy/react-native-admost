@@ -1,22 +1,22 @@
 PODS:
   - AdmostFairAds (1.3.0)
-  - AMRAdapterAdmob (10.13.0.0):
-    - AMRSDK (~> 1.5.40)
-    - Google-Mobile-Ads-SDK (= 10.13.0)
+  - AMRAdapterAdmob (10.14.0.0):
+    - AMRSDK (~> 1.5.42)
+    - Google-Mobile-Ads-SDK (= 10.14.0)
   - AMRAdapterAdmost (1.6.9.1):
     - AMRAdmostSDK (~> 1.0.9)
     - AMRSDK (~> 1.5.9)
   - AMRAdmostSDK (1.0.15):
     - AMRSDK (~> 1.5.7)
     - KokteylLog (~> 1.1.1)
-  - AMRSDK (1.5.40):
-    - AMRSDK/AFA (= 1.5.40)
-    - AMRSDK/Core (= 1.5.40)
+  - AMRSDK (1.5.42):
+    - AMRSDK/AFA (= 1.5.42)
+    - AMRSDK/Core (= 1.5.42)
     - KokteylLog (~> 1.1.1)
-  - AMRSDK/AFA (1.5.40):
+  - AMRSDK/AFA (1.5.42):
     - AdmostFairAds (~> 1.3.0)
     - KokteylLog (~> 1.1.1)
-  - AMRSDK/Core (1.5.40):
+  - AMRSDK/Core (1.5.42):
     - KokteylLog (~> 1.1.1)
   - boost (1.83.0)
   - CocoaAsyncSocket (7.6.5)
@@ -87,24 +87,24 @@ PODS:
     - FlipperKit/FlipperKitNetworkPlugin
   - fmt (6.2.1)
   - glog (0.3.5)
-  - Google-Mobile-Ads-SDK (10.13.0):
+  - Google-Mobile-Ads-SDK (10.14.0):
     - GoogleAppMeasurement (< 11.0, >= 7.0)
     - GoogleUserMessagingPlatform (>= 1.1)
-  - GoogleAppMeasurement (10.19.0):
-    - GoogleAppMeasurement/AdIdSupport (= 10.19.0)
+  - GoogleAppMeasurement (10.20.0):
+    - GoogleAppMeasurement/AdIdSupport (= 10.20.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
     - GoogleUtilities/MethodSwizzler (~> 7.11)
     - GoogleUtilities/Network (~> 7.11)
     - "GoogleUtilities/NSData+zlib (~> 7.11)"
     - nanopb (< 2.30910.0, >= 2.30908.0)
-  - GoogleAppMeasurement/AdIdSupport (10.19.0):
-    - GoogleAppMeasurement/WithoutAdIdSupport (= 10.19.0)
+  - GoogleAppMeasurement/AdIdSupport (10.20.0):
+    - GoogleAppMeasurement/WithoutAdIdSupport (= 10.20.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
     - GoogleUtilities/MethodSwizzler (~> 7.11)
     - GoogleUtilities/Network (~> 7.11)
     - "GoogleUtilities/NSData+zlib (~> 7.11)"
     - nanopb (< 2.30910.0, >= 2.30908.0)
-  - GoogleAppMeasurement/WithoutAdIdSupport (10.19.0):
+  - GoogleAppMeasurement/WithoutAdIdSupport (10.20.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
     - GoogleUtilities/MethodSwizzler (~> 7.11)
     - GoogleUtilities/Network (~> 7.11)
@@ -1011,7 +1011,7 @@ PODS:
   - React-Mapbuffer (0.73.0):
     - glog
     - React-debug
-  - react-native-admost (3.1.0):
+  - react-native-admost (3.1.1):
     - AMRSDK (~> 1.5)
     - React-Core
   - React-nativeconfig (0.73.0)
@@ -1393,10 +1393,10 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AdmostFairAds: 48b211144afdd87b27457deeaaf3e0fd796bf277
-  AMRAdapterAdmob: 51e0ce9e14ed55bc6974501fc38c037217cc9def
+  AMRAdapterAdmob: 14ec87f572102689416145a7d49554f815eddd65
   AMRAdapterAdmost: 0f05a8390e74a5f82de46cb2a31514c3b7588004
   AMRAdmostSDK: 108882b2cfc0d60dd5e4b8ff7093f6e80ddc1607
-  AMRSDK: ee0af5187ab653dbf74a973d3a4fe49da66a2bb7
+  AMRSDK: 6f7bff52d145e4ef3def10603c38d44b91ba37a4
   boost: 26fad476bfa736552bbfa698a06cc530475c1505
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: fea03f2699887d960129cc54bba7e52542b6f953
@@ -1412,8 +1412,8 @@ SPEC CHECKSUMS:
   FlipperKit: 37525a5d056ef9b93d1578e04bc3ea1de940094f
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: c5d68082e772fa1c511173d6b30a9de2c05a69a2
-  Google-Mobile-Ads-SDK: 517003a1a2430005da3e85df4d061cd7de107a5a
-  GoogleAppMeasurement: 68afe759316673c6554dac35a0c7ae8f5d6cb4ed
+  Google-Mobile-Ads-SDK: 8f67a72f88d057335b1ac3f501e2b68ad054116e
+  GoogleAppMeasurement: bb3c564c3efb933136af0e94899e0a46167466a8
   GoogleUserMessagingPlatform: dce302b8f1b84d6e945812ee7a15c3f65a102cbf
   GoogleUtilities: 0759d1a57ebb953965c2dfe0ba4c82e95ccc2e34
   hermes-engine: 34304f8c6e8fa68f63a5fe29af82f227d817d7a7
@@ -1443,7 +1443,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 9f6fb9ed9f03a0fb961ab8dc2e0e0ee0dc729e77
   React-logger: 008caec0d6a587abc1e71be21bfac5ba1662fe6a
   React-Mapbuffer: 58fe558faf52ecde6705376700f848d0293d1cef
-  react-native-admost: f32a2c65f3849c7510690fe5d6920f23bb3ab34f
+  react-native-admost: c94b4dc780e09380ad8b397cdf915ba5d8ec1045
   React-nativeconfig: a063483672b8add47a4875b0281e202908ff6747
   React-NativeModulesApple: 169506a5fd708ab22811f76ee06a976595c367a1
   React-perflogger: b61e5db8e5167f5e70366e820766c492847c082e

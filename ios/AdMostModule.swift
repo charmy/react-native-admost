@@ -27,7 +27,8 @@ class AdMostModule: RCTEventEmitter {
         let configurations = config as! Dictionary<String, Any>
 
         if config["appId"] == nil {
-            fatalError("Missing required param 'appId'")
+            reject("ADMOST_MISSING_PARAM", "appId is required", nil);
+            return
         }
 
         if configurations["userConsent"] != nil {
@@ -46,18 +47,25 @@ class AdMostModule: RCTEventEmitter {
             AMRSDK.setUserChild(configurations["userChild"] as! Bool)
         }
 
-        if configurations["userId"] != nil {
-            AMRSDK.setUserId(configurations["userId"] as! String)
-        }
-
-
-        if #available(iOS 14, *) {
+        if #available(iOS 14.5, *) {
             ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
+                AMRSDK.updateATTStatus()
                 // Tracking authorization completed.
             })
         }
 
         AMRSDK.start(withAppId: configurations["appId"] as! String)
+        resolve(true)
+    }
+
+    @objc
+    func setUserId(_ userId: NSString) -> Void {
+        AMRSDK.setUserId(userId as String)
+    }
+
+    @objc
+    func setCanRequestAds(_ canRequestsAds: Bool) -> Void {
+        AMRSDK.canRequestAds(canRequestsAds)
     }
 
     public func sendEvent(eventName: String, body: Any?) -> Void {
@@ -80,7 +88,6 @@ class AdMostModule: RCTEventEmitter {
             "ADMOST_REWARDED_ON_CLICKED",
             "ADMOST_REWARDED_ON_STATUS_CHANGED",
         ]
-
     }
 
 }

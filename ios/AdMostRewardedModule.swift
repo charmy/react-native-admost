@@ -12,11 +12,7 @@ class AdMostRewardedModule: NSObject, AMRRewardedVideoDelegate {
     }
 
     @objc
-    func loadAd(
-            _ zoneId: NSString,
-            resolver resolve: RCTPromiseResolveBlock,
-            rejecter reject: RCTPromiseRejectBlock
-    ) -> Void {
+    func loadAd(_ zoneId: NSString) -> Void {
         let adMostRewarded = adMostRewardedDict[zoneId as String]
 
         if adMostRewarded == nil {
@@ -32,11 +28,7 @@ class AdMostRewardedModule: NSObject, AMRRewardedVideoDelegate {
     }
 
     @objc
-    func destroyAd(
-            _ zoneId: NSString,
-            resolver resolve: RCTPromiseResolveBlock,
-            rejecter reject: RCTPromiseRejectBlock
-    ) -> Void {
+    func destroyAd(_ zoneId: NSString) -> Void {
         let adMostRewarded = adMostRewardedDict[zoneId as String]
 
         if adMostRewarded != nil {

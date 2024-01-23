@@ -27,8 +27,11 @@ interface AdMostProps {
     subjectToGDPR?: boolean;
     subjectToCCPA?: boolean;
     userChild?: boolean;
-    userId?: string;
   }) => Promise<void>;
+
+  setUserId: (userId: string) => void;
+  setCanRequestAds: (canRequestsAds: boolean) => void;
+
   addInterstitialListener: InterstitialEvent;
   addRewardedListener: RewardedEvent;
 }
@@ -57,6 +60,9 @@ export { AdMostAdView };
 
 export default {
   initAdMost: NativeModules.AdMost.initAdMost,
+  setUserId: NativeModules.AdMost.setUserId,
+  setCanRequestAds: NativeModules.AdMost.setCanRequestAds,
+
   addInterstitialListener: {
     onReady: (cb: (e: { network: string; ecpm: number; zoneId: string }) => void) => {
       return AdMostEventEmitter.addListener(`ADMOST_INTERSTITIAL_ON_READY`, cb);
@@ -77,6 +83,7 @@ export default {
       return AdMostEventEmitter.addListener(`ADMOST_INTERSTITIAL_ON_STATUS_CHANGED`, cb);
     },
   },
+
   addRewardedListener: {
     onReady: (cb: (e: { network: string; ecpm: number; zoneId: string }) => void) => {
       return AdMostEventEmitter.addListener(`ADMOST_REWARDED_ON_READY`, cb);

@@ -110,9 +110,9 @@ dependencies {
     implementation("com.facebook.react:flipper-integration")
 
     //AdMost
-    implementation 'com.admost.sdk:admost-adapter:1.1.8.a40'
+    implementation 'com.admost.sdk:admost-adapter:1.1.8.a42'
     implementation 'com.google.android.gms:play-services-ads:22.5.0'
-    implementation 'com.admost.sdk:admob-adapter:1.0.1.a40'
+    implementation 'com.admost.sdk:admob-adapter:1.0.1.a42'
 
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")

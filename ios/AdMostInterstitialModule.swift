@@ -12,11 +12,7 @@ class AdMostInterstitialModule: NSObject, AMRInterstitialDelegate {
     }
 
     @objc
-    func loadAd(
-            _ zoneId: NSString,
-            resolver resolve: RCTPromiseResolveBlock,
-            rejecter reject: RCTPromiseRejectBlock
-    ) -> Void {
+    func loadAd(_ zoneId: NSString) -> Void {
         let adMostInterstitial = adMostInterstitialDict[zoneId as String]
 
         if adMostInterstitial == nil {
@@ -32,11 +28,7 @@ class AdMostInterstitialModule: NSObject, AMRInterstitialDelegate {
     }
 
     @objc
-    func destroyAd(
-            _ zoneId: NSString,
-            resolver resolve: RCTPromiseResolveBlock,
-            rejecter reject: RCTPromiseRejectBlock
-    ) -> Void {
+    func destroyAd(_ zoneId: NSString) -> Void {
         let adMostInterstitial = adMostInterstitialDict[zoneId as String]
 
         if adMostInterstitial != nil {

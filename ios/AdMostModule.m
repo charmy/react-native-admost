@@ -7,4 +7,6 @@ RCT_EXTERN_METHOD(initAdMost:
                   (nonnull NSDictionary) config
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXTERN_METHOD(setUserId: (nonnull NSString) userId)
+RCT_EXTERN_METHOD(setCanRequestAds: (nonnull BOOL) canRequestsAds)
 @end
