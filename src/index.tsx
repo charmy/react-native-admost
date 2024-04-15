@@ -1,4 +1,4 @@
-import { type EmitterSubscription, NativeEventEmitter, NativeModules } from "react-native";
+import { type EmitterSubscription, NativeEventEmitter, NativeModules, Platform } from "react-native";
 import AdMostAdView from "./AdMostAdView";
 
 interface InterstitialEvent {
@@ -20,17 +20,38 @@ interface RewardedEvent {
   onStatusChanged: (cb: (e: { network: string; zoneId: string }) => void) => EmitterSubscription;
 }
 
+interface InitConfig {
+  appId: string;
+  userConsent?: boolean;
+  subjectToGDPR?: boolean;
+  subjectToCCPA?: boolean;
+  userChild?: boolean;
+}
+
+interface TrackIAPAndroid {
+  purchaseData: string;
+  signature: string;
+  currency: string;
+  priceAmountMicros: number;
+  tag?: string;
+  isDebug?: boolean;
+}
+
+interface TrackIAPIos {
+  transactionId: string;
+  currency: string;
+  price: number;
+  tag?: string;
+}
+
 interface AdMostProps {
-  initAdMost: (config: {
-    appId: string;
-    userConsent?: boolean;
-    subjectToGDPR?: boolean;
-    subjectToCCPA?: boolean;
-    userChild?: boolean;
-  }) => Promise<void>;
+  initAdMost: (config: InitConfig) => Promise<void>;
 
   setUserId: (userId: string) => void;
   setCanRequestAds: (canRequestsAds: boolean) => void;
+
+  trackIAPAndroid: (data: TrackIAPAndroid) => void;
+  trackIAPIos: (data: TrackIAPIos) => void;
 
   addInterstitialListener: InterstitialEvent;
   addRewardedListener: RewardedEvent;
@@ -60,8 +81,25 @@ export { AdMostAdView };
 
 export default {
   initAdMost: NativeModules.AdMost.initAdMost,
+
   setUserId: NativeModules.AdMost.setUserId,
   setCanRequestAds: NativeModules.AdMost.setCanRequestAds,
+
+  trackIAPAndroid: (data: TrackIAPAndroid) => {
+    if (Platform.OS !== "android") {
+      throw new Error("This method can only be used for 'android'.");
+    }
+
+    NativeModules.AdMost.trackIAP(data);
+  },
+
+  trackIAPIos: (data: TrackIAPIos) => {
+    if (Platform.OS !== "ios") {
+      throw new Error("This method can only be used for 'ios'.");
+    }
+
+    NativeModules.AdMost.trackIAP(data);
+  },
 
   addInterstitialListener: {
     onReady: (cb: (e: { network: string; ecpm: number; zoneId: string }) => void) => {

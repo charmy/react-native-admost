@@ -9,4 +9,5 @@ RCT_EXTERN_METHOD(initAdMost:
                   rejecter:(RCTPromiseRejectBlock)reject)
 RCT_EXTERN_METHOD(setUserId: (nonnull NSString) userId)
 RCT_EXTERN_METHOD(setCanRequestAds: (nonnull BOOL) canRequestsAds)
+RCT_EXTERN_METHOD(trackIAP: (nonnull NSDictionary) data)
 @end

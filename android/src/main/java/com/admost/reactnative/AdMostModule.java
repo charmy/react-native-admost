@@ -65,6 +65,31 @@ public class AdMostModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
+  public void trackIAP(final ReadableMap readableMap) {
+    String purchaseData = readableMap.getString("purchaseData");
+    String signature = readableMap.getString("signature");
+    String currency = readableMap.getString("currency");
+
+    double priceAmountMicros = 0;
+    if (readableMap.hasKey("priceAmountMicros")) {
+      priceAmountMicros = readableMap.getDouble("priceAmountMicros");
+    }
+
+    String[] tags = null;
+    if (readableMap.hasKey("tag")) {
+      String tag = readableMap.getString("tag");
+      tags = new String[]{tag};
+    }
+
+    boolean isDebug = false;
+    if (readableMap.hasKey("isDebug")) {
+      isDebug = readableMap.getBoolean("isDebug");
+    }
+
+    AdMost.getInstance().trackIAP(purchaseData, signature, priceAmountMicros, currency, tags, isDebug);
+  }
+
+  @ReactMethod
   public void addListener(String e) {
     // for event emitter warnings
   }

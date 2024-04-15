@@ -67,6 +67,23 @@ class AdMostModule: RCTEventEmitter {
     func setCanRequestAds(_ canRequestsAds: Bool) -> Void {
         AMRSDK.canRequestAds(canRequestsAds)
     }
+    
+    @objc
+    func trackIAP(_ data: NSDictionary) -> Void {
+        let dataDict = data as! Dictionary<String, Any>
+        
+        let transactionId = dataDict["transactionId"] as! String
+        let currency = dataDict["currency"] as! String
+        let price = dataDict["price"] as! Double
+        
+        var tags: [String] = []
+        if dataDict["tag"] != nil {
+            let tag = dataDict["tag"] as! String
+            tags = [tag]
+        }
+        
+        AMRSDK.trackIAP(transactionId, currencyCode: currency, amount: price, tags: tags)
+    }
 
     public func sendEvent(eventName: String, body: Any?) -> Void {
         sendEvent(withName: eventName, body: body)
