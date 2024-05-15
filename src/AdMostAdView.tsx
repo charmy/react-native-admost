@@ -49,20 +49,22 @@ function AdMostAdView({
   }, []);
 
   const loadAd = useCallback(() => {
+    const viewId = findNodeHandle(rctAdMostAdViewRef.current);
     const commandId =
       Platform.OS === "ios" ? UIManager.getViewManagerConfig(RCTComponentName).Commands.loadAd : "loadAd";
 
-    if (commandId) {
-      UIManager.dispatchViewManagerCommand(findNodeHandle(rctAdMostAdViewRef.current), commandId, []);
+    if (commandId !== undefined && viewId !== null) {
+      UIManager.dispatchViewManagerCommand(viewId, commandId, []);
     }
   }, [rctAdMostAdViewRef.current]);
 
   const destroyAd = useCallback(() => {
+    const viewId = findNodeHandle(rctAdMostAdViewRef.current);
     const commandId =
       Platform.OS === "ios" ? UIManager.getViewManagerConfig(RCTComponentName).Commands.destroyAd : "destroyAd";
 
-    if (commandId) {
-      UIManager.dispatchViewManagerCommand(findNodeHandle(rctAdMostAdViewRef.current), commandId, []);
+    if (commandId !== undefined && viewId !== null) {
+      UIManager.dispatchViewManagerCommand(viewId, commandId, []);
     }
   }, [rctAdMostAdViewRef.current]);
 
