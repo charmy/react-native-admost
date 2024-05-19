@@ -1,6 +1,6 @@
 {
   "name": "@charmy.tech/react-native-admost",
-  "version": "3.2.6",
+  "version": "3.3.0",
   "description": "AdMost react-native implementation",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
