@@ -3,7 +3,16 @@
 ## Getting started
 
 ```shell script
-$ npm install @charmy.tech/react-native-admost --save
+$ yarn add @charmy.tech/react-native-admost
+```
+
+### Run Example Project
+```shell
+yarn install
+cd example
+yarn run prebuild
+yarn run android -d
+yarn run ios -d
 ```
 
 ### Android
