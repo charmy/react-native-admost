@@ -21,7 +21,6 @@ Pod::Spec.new do |s|
     install_modules_dependencies(s)
   else
   s.dependency 'React-Core'
-  s.dependency "AMRSDK", "~> 1.5"
 
   # Don't install the dependencies when we run `pod install` in the old architecture.
   if ENV['RCT_NEW_ARCH_ENABLED'] == '1' then
@@ -39,4 +38,6 @@ Pod::Spec.new do |s|
     s.dependency "ReactCommon/turbomodule/core"
    end
   end
+
+  s.dependency "AMRSDK", "~> 1.5"
 end
