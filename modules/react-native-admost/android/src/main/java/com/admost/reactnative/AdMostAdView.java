@@ -14,6 +14,7 @@ import com.facebook.react.uimanager.events.RCTEventEmitter;
 
 import admost.sdk.AdMostView;
 import admost.sdk.AdMostViewBinder;
+import admost.sdk.base.AdMostAdNetwork;
 import admost.sdk.listener.AdMostViewListener;
 
 @SuppressLint("ViewConstructor")
@@ -62,6 +63,14 @@ public class AdMostAdView extends FrameLayout implements AdMostViewListener {
     adViewGroup.removeAllViews();
     adViewGroup.addView(adView);
     refreshViewChildrenLayout(adViewGroup);
+
+    if (network.equals(AdMostAdNetwork.TIKTOK) && context.getCurrentActivity() != null) {
+      ViewGroup vg = (ViewGroup) context.getCurrentActivity().getWindow().getDecorView();
+
+      View dummyView = new View(context);
+      dummyView.setVisibility(View.GONE);
+      vg.addView(dummyView);
+    }
   }
 
   @Override
