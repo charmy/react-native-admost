@@ -1,7 +1,22 @@
-import { withInfoPlist, withPodfile, withXcodeProject, IOSConfig } from "@expo/config-plugins";
+import { withInfoPlist, withDangerousMod, withXcodeProject, IOSConfig } from "@expo/config-plugins";
 import { mergeContents } from "@expo/config-plugins/build/utils/generateCode";
 import type { ConfigPlugin, InfoPlist, ExportedConfigWithProps, XcodeProject } from "@expo/config-plugins";
 import type { AdMostIosConfig } from "../config";
+import path from "path";
+import fs from "fs";
+
+const withPodfile = (config: any, fc: (config: ExportedConfigWithProps) => ExportedConfigWithProps) => {
+  return withDangerousMod(config, [
+    "ios",
+    async (config) => {
+      const filePath = path.join(config.modRequest.platformProjectRoot, "Podfile");
+      // @ts-ignore
+      config.modResults.contents = fs.readFileSync(filePath, "utf-8");
+      fs.writeFileSync(filePath, fc(config).modResults.contents);
+      return config;
+    },
+  ]);
+};
 
 const setAdmobAppId = (file: InfoPlist, admobAppId: string) => {
   file.GADApplicationIdentifier = admobAppId;
