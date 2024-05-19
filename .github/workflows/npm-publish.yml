@@ -19,7 +19,9 @@ jobs:
       - name: Build
         run: |
           yarn install
-      - run: |
+      - name: Publish
+        run: |
+          cp README.md modules/react-native-admost/README.md
           cd modules/react-native-admost
           npm publish --provenance --access public
         env:
