@@ -1,0 +1,73 @@
+{
+  "name": "@charmy.tech/react-native-admost",
+  "version": "3.2.6",
+  "description": "AdMost react-native implementation",
+  "main": "lib/commonjs/index",
+  "module": "lib/module/index",
+  "types": "lib/typescript/src/index.d.ts",
+  "react-native": "src/index",
+  "source": "src/index",
+  "files": [
+    "src",
+    "lib",
+    "android",
+    "ios",
+    "cpp",
+    "plugin",
+    "app.plugin.js",
+    "*.podspec",
+    "!ios/build",
+    "!android/build",
+    "!android/gradle",
+    "!android/gradlew",
+    "!android/gradlew.bat",
+    "!android/local.properties",
+    "!**/__tests__",
+    "!**/__fixtures__",
+    "!**/__mocks__",
+    "!**/.*"
+  ],
+  "scripts": {
+    "prepare": "bob build && tsc --build plugin"
+  },
+  "keywords": [
+    "react-native",
+    "admost"
+  ],
+  "repository": "https://github.com/charmy/react-native-admost",
+  "author": "charmy (https://github.com/charmy)",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/charmy/react-native-admost/issues"
+  },
+  "homepage": "https://github.com/charmy/react-native-admost#readme",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "devDependencies": {
+    "@types/react": "~18.2.45",
+    "expo-module-scripts": "^3.5.1",
+    "react": "18.2.0",
+    "react-native": "0.74.1",
+    "react-native-builder-bob": "^0.23.2",
+    "typescript": "^5.2.2"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
+  "react-native-builder-bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      "commonjs",
+      "module",
+      [
+        "typescript",
+        {
+          "project": "tsconfig.json"
+        }
+      ]
+    ]
+  }
+}

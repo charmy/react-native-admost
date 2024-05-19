@@ -19,7 +19,10 @@ jobs:
       - name: Build
         run: |
           yarn install
-          yarn run prepare
-      - run: npm publish --provenance --access public
+      - name: Publish
+        run: |
+          cp README.md modules/react-native-admost/README.md
+          cd modules/react-native-admost
+          npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
