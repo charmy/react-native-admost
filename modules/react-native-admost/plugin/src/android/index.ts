@@ -27,7 +27,7 @@ const mergeProjectBuildGradle = (file: string, dependencies: string[]) => {
   }).contents;
 };
 
-function mergeAppBuildGradle(file: string, dependencies: string[]) {
+const mergeAppBuildGradle = (file: string, dependencies: string[]) => {
   if (!dependencies || dependencies.length === 0) {
     return file;
   }
@@ -40,7 +40,7 @@ function mergeAppBuildGradle(file: string, dependencies: string[]) {
     offset: 1,
     comment: "//",
   }).contents;
-}
+};
 
 export const withAndroidConfig: ConfigPlugin<AdMostAndroidConfig> = (config, pluginConfig) => {
   config = withAndroidManifest(config, (config) => {

@@ -3,17 +3,35 @@ import { mergeContents } from "@expo/config-plugins/build/utils/generateCode";
 import type { ConfigPlugin, InfoPlist, ExportedConfigWithProps, XcodeProject } from "@expo/config-plugins";
 import type { AdMostIosConfig } from "../config";
 
-function setAdmobAppId(file: InfoPlist, admobAppId: string) {
+const setAdmobAppId = (file: InfoPlist, admobAppId: string) => {
   file.GADApplicationIdentifier = admobAppId;
   return file;
-}
+};
 
-function setSKAdNetworks(file: InfoPlist, skAdNetworks: string[]) {
+const setSKAdNetworks = (file: InfoPlist, skAdNetworks: string[]) => {
   file.SKAdNetworkItems = skAdNetworks.map((v) => ({ SKAdNetworkIdentifier: v }));
   return file;
-}
+};
 
-function mergePods(file: string, dependencies: string[]) {
+const setExceptionDomains = (file: InfoPlist) => {
+  const currentNSAppTransportSecurity: any = file.NSAppTransportSecurity || {};
+  const currentNSExceptionDomains: any = currentNSAppTransportSecurity.NSExceptionDomains || {};
+
+  file.NSAppTransportSecurity = {
+    ...currentNSAppTransportSecurity,
+    NSExceptionDomains: {
+      ...currentNSExceptionDomains,
+      "admost.com": {
+        NSExceptionAllowsInsecureHTTPLoads: true,
+        NSIncludesSubdomains: true,
+      },
+    },
+  };
+
+  return file;
+};
+
+const mergePods = (file: string, dependencies: string[]) => {
   if (!dependencies || dependencies.length === 0) {
     return file;
   }
@@ -26,7 +44,7 @@ function mergePods(file: string, dependencies: string[]) {
     offset: 1,
     comment: "#",
   }).contents;
-}
+};
 
 const mergeXcodeFrameworks = (config: ExportedConfigWithProps<XcodeProject>, frameworks: string[]) => {
   const target = IOSConfig.XcodeUtils.getApplicationNativeTarget({
@@ -47,6 +65,7 @@ export const withIosConfig: ConfigPlugin<AdMostIosConfig> = (config, pluginConfi
   config = withInfoPlist(config, (config) => {
     config.modResults = setAdmobAppId(config.modResults, pluginConfig.admobAppId);
     config.modResults = setSKAdNetworks(config.modResults, pluginConfig.skAdNetworks);
+    config.modResults = setExceptionDomains(config.modResults);
     return config;
   });
 
